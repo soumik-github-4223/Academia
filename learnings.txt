@@ -1,0 +1,71 @@
+Project planning :
+Breakdown major and minor features
+
+From picture:
+- Backend plan 
+=> Planing and Project Structure 
+1. Software design 
+2. Technology brief 
+3. code editor overview 
+4. project server setup 
+5. database, cloudinary, redis connection 
+
+=> Handle Errors, user authentication 
+6. Handle Errors 
+7. user model design 
+8. user registration 
+9. user activation 
+10. user login, logout 
+11. user authorization 
+12. Generate new token,user social authentication,get user info 
+13. update user info, password, avatar 
+
+=> course model and course creation 
+14. Course Model design 
+15. Create course, edit course 
+16. Get single and all courses without purchasing 
+17. get course content,get user accessable all courses only for valid user 
+18. create question, add reply in question 
+19. add review in course 
+
+=> Order and Notifications maintaining 
+20. Notification and Order model 
+21. Create Order 
+22. Get all notifications,update notification status 
+23. delete read notifications -- with crone after a certain time 
+
+=> Admin dashboard and analytics 
+24. Get all users, courses, orders 
+25. Add and get members in admin dashboard 
+26. Delete course, Banned user 
+27. get last 28 days users, orders, notifications for last lyear
+
+
+This is a medium scale application.
+Next js is good for frontend and Node is good for backend.
+
+For large scale app, next is good for frontend and Nest js/Django is
+good for backend
+
+Technology used: 
+1. Next js for frontend
+2. Node for backend
+3. Redis for caching : Redis is serverless database
+4. RTT query
+5. EJS for dynamic mail template
+
+-Why maintaining caching is important ?
+
+When some popular courses is searched by many number of people
+then everytime requesting data from database will increase load
+for that we use redis to store frequently visited courses and it helps
+application from going to database for frequent queries. That is called
+caching
+
+
+-Why using RTT query instead of Redux Toolkit ?
+
+To visit a already visited url in our application, we are caching 
+our previous result with RTT query, for that no new request 
+is made. This makes application faster and smooth. The chached
+data stays until reloading of the webpage

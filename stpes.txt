@@ -1,0 +1,32 @@
+Create server folder
+Open terminal in server folder and run npm init. In the entry point write server.js -> After running package.json will be generated 
+Now do "npm i bcryptjs cookie-parser cors dotenv express ioredis jsonwebtoken mongoose ts-node-dev @types/bcryptjs @types/cookie-parser @types/cors @types/express @types/jsonwebtoken @types/node typescript" in terminal
+Create app.ts -> server.ts
+Add "dev": "ts-node-dev --respawn --transpile-only src/server.ts" to package.
+
+Add tsconfig.json file to compile typescript, otherwise it will give error (not shown in video)
+
+Now after writing some basic routes in app.ts we create utils folder and create db.ts
+
+Use upstash for connecting redis
+
+Open mongodb site -> create new project -> create database -> give any cluster name -> connect -> give username and password -> add ip address 0.0.0.0/0 (it allows our site to be viewed around the world as its a whitelist IP address) -> click connect -> Mongo DB for vs code -> get the mongodb uri and paste it in env
+In URI write collection name eg. "/LMS" after uri
+
+create redis database
+
+Now write db connection in utils/db.ts 
+
+Create redis.ts and write redis connection
+
+Now create ErrorHandler.ts for backend error handling: This will be used if user enters wrong password, doesn't fill correct details etc. We will pass an error message and a status code from ErrorHandler.ts , in that file we write classes, and whenever we require error handling we just create object of the classes by passing parameters.
+
+Create middleware folder and write error.ts
+
+Use errorMiddleware in app.ts
+
+Create catchAsyncErrors.ts in middleware folder to shortcut our code as we will use async function many times
+
+Now create models folder -> create user_model.ts
+
+-Start from: 1:59:23
