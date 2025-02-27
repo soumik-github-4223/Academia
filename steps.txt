@@ -29,4 +29,11 @@ Create catchAsyncErrors.ts in middleware folder to shortcut our code as we will 
 
 Now create models folder -> create user_model.ts
 
--Start from: 1:59:23
+Create controllers folder -> create user_controller.ts
+
+do npm i ejs nodemailer for sending email 
+do npm i --save-dev @types/ejs
+
+create folder mails -> create activationmail.ejs
+
+-Start from: 2:24:20
