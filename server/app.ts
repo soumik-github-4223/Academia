@@ -4,7 +4,7 @@ import cors from 'cors'; //import cors
 import cookieParser from 'cookie-parser';
 require('dotenv').config(); //import dotenv
 import { errorMiddleware } from './middleware/error';
-
+import UserRouter from './routes/user_routes';
 
 
 //body parser : 
@@ -18,6 +18,10 @@ app.use(cookieParser());
 app.use(cors({
     origin: process.env.ORIGIN
 }));
+
+
+//routes
+app.use("/api/v1",UserRouter);
 
 //testing api
 app.get("/test",(req:Request, res:Response,next:NextFunction)=>{

@@ -34,6 +34,19 @@ Create controllers folder -> create user_controller.ts
 do npm i ejs nodemailer for sending email 
 do npm i --save-dev @types/ejs
 
-create folder mails -> create activationmail.ejs
+create folder mails -> create activationmail.ejs->create template for mail(simple html code,just the dynamic parameters is shown by angle bracket and %)
 
--Start from: 2:24:20
+In utils folder create sendMail.ts for sending mail
+now in env file write the SMTP parameters.. the password can be got by the steps : go to manage your google account -> search app password -> create an app named nodemailer
+
+complete user_controller.ts by importing sendMail.ts
+
+Now create routes folder and create user_routes.ts 
+
+Now test the apis
+
+Write active user code in user_controller.ts
+
+
+
+-Start from: 2:38:00

@@ -5,6 +5,8 @@ import { catchAsyncError } from "../middleware/catchAsyncErrors";
 import jwt, { Secret } from "jsonwebtoken";
 require("dotenv").config();
 import ejs from "ejs";
+import path from "path";
+import sendMail from "../utils/sendMail";
 
 //register user
 interface registrationBody{
@@ -18,7 +20,7 @@ export const registerUser= catchAsyncError(async(req:Request,res:Response,next:N
     try{
         const {name,email,password}=req.body;
 
-        const isEmailExists=await userModel.findOne(email);
+        const isEmailExists=await userModel.findOne({email});
         if(isEmailExists) return next(new ErrorHandler("Email already exists",400));
 
         const user:registrationBody={name,email,password};
@@ -26,7 +28,24 @@ export const registerUser= catchAsyncError(async(req:Request,res:Response,next:N
 
         const activationCode=activationToken.activationCode;
         const data={user:{name:user.name,},activationCode};
-        const html=await ejs.renderFile(path.join(__dirname,""))
+        const html=await ejs.renderFile(path.join(__dirname,"../mails/activationmail.ejs"),data) // custom path to the ejs file for mail template
+
+        try{
+            await sendMail({
+                email:user.email,
+                subject:"Account Activation",
+                template:"activationmail.ejs",
+                data
+            });
+
+            res.status(201).json({
+                success:true,
+                message:`Please check your email ${user.email} to activate your account`,
+                activationToken: activationToken.token
+            })
+        }catch(error:any){
+            return next(new ErrorHandler(error.message,400))
+        }
 
     }catch(err:any){
         return next(new ErrorHandler(err.message,400));
@@ -45,8 +64,40 @@ export const createActivationToken=(user:any):IactivationToken =>{
     const token=jwt.sign({user,activationCode},process.env.ACTIVATION_SECRET as Secret,{expiresIn:"5m"});
 
     return {token,activationCode};
+};
+
+
+//activate user :Taking otp as input from user and verifying it
+interface IactivationRequest{
+    activation_token:string;
+    activation_code:string;
 }
 
+export const activateUser=catchAsyncError(async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        const {activation_token,activation_code}=req.body as IactivationRequest;
 
+        const newUser:{user:Iuser;activationCode:string}=jwt.verify(
+            activation_token,
+            process.env.ACTIVATION_SECRET as string
+        ) as {user:Iuser; activationCode:string};
 
+        if(newUser.activationCode!== activation_code){
+            return next(new ErrorHandler("Invalid activation code",400));
+        }
+
+        const {name,email,password}=newUser.user;
+        const existUser=await userModel.findOne({email});
+
+        if(existUser){
+            return next(new ErrorHandler("Email already exists",400));
+        }
+
+        
+
+    }
+    catch(err:any){
+        return next(new ErrorHandler(err.message,400));
+    }
+})
 
