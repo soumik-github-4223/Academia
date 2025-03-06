@@ -21,7 +21,7 @@ app.use(cors({
 
 
 //routes
-app.use("/api/v1",UserRouter);
+app.use("/api/v1",UserRouter); 
 
 //testing api
 app.get("/test",(req:Request, res:Response,next:NextFunction)=>{

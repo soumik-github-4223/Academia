@@ -47,6 +47,25 @@ Now test the apis
 
 Write active user code in user_controller.ts
 
+Add activate-user route to user_routes.ts
 
+test activate-user api by sending json data of activation_code and activation_token
 
--Start from: 2:38:00
+Now in env add ACCESS_TOKEN AND REFRESH_TOKEN and add the fields by copying password from password generator online
+
+Now come to user_model.ts and update interface and write signAccessToken and signRefreshToken fn 
+
+Authentication plan understand by diagram :
+First user will give email & password -> server validates and send two cookie(ACCESS_TOKEN and REFRESH_TOKEN) to the browser -> user logs in -> access token will expire after 10min -> then again if user tries to login then REFRESH_TOKEN will get another new ACCESS_TOKEN from server -> with that user can enter 
+
+Write login user in user_controller.ts
+
+Now create jwt.ts in utils
+
+add login api to user routes and test it. See that after getting response there are two cookies also
+
+Now write logoutUser fn in user_controller.ts and test logout api
+
+now create protected route. Create auth.ts in middleware folder 
+
+-Start from: 3:12:40

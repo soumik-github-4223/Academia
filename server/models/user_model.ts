@@ -4,6 +4,9 @@ import bcrypt from "bcryptjs";
 
 const emailRegexPattern:RegExp=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; // validating email
 
+require('dotenv').config();
+import jwt from "jsonwebtoken";
+
 
 export interface Iuser extends Document{
     name:string;
@@ -17,7 +20,8 @@ export interface Iuser extends Document{
     isVerified:boolean;
     courses: Array<{courseId:string}>;
     comparePassword: (password:string)=> Promise<boolean>;
-
+    SignAccessToken: ()=>string;
+    SignRefreshToken:()=>string;
 }
 
 
@@ -70,6 +74,16 @@ userSchema.pre<Iuser>("save",async function(next){
     this.password=await bcrypt.hash(this.password,10);
     next();
 });
+
+//sign access token
+userSchema.methods.SignAccessToken= function(){
+    return jwt.sign({id:this._id},process.env.ACCESS_TOKEN || '');
+}
+
+//sign refresh token
+userSchema.methods.SignRefreshToken= function(){
+    return jwt.sign({id:this._id},process.env.REFRESH_TOKEN || '')
+}
 
 //compare user password
 userSchema.methods.comparePassword=async function(enteredPassword:string):Promise<boolean>{
