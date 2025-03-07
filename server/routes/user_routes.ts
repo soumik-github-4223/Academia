@@ -2,6 +2,7 @@
 
 import express from 'express';
 import { activateUser, loginUser, logoutUser, registerUser } from '../controllers/user_controller';
+import { isAuthenticated } from '../middleware/auth';
 const UserRouter = express.Router();
 
 UserRouter.post('/registration',registerUser);
@@ -10,6 +11,6 @@ UserRouter.post('/activate-user',activateUser);
 
 UserRouter.post('/login',loginUser);
 
-UserRouter.get('/logout',logoutUser);
+UserRouter.get('/logout',isAuthenticated,logoutUser); // isAuthenticated middleware is used to protect the route
 
 export default UserRouter; // export the router
