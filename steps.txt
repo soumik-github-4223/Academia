@@ -67,6 +67,8 @@ add login api to user routes and test it. See that after getting response there 
 Now write logoutUser fn in user_controller.ts and test logout api
 
 now create protected route. Create auth.ts in middleware folder 
+for auth.ts create @types folder within server and then create custom.d.ts 
+
 Write redis cache delete in logout fn in user_controller.ts
 
 -Start from: 3:21:30
