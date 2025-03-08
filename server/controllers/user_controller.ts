@@ -2,13 +2,15 @@ import { Request,Response,NextFunction } from "express";
 import { userModel,Iuser } from "../models/user_model";
 import ErrorHandler from "../utils/ErrorHandler";
 import { catchAsyncError } from "../middleware/catchAsyncErrors";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 require("dotenv").config();
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
-import { sendToken } from "../utils/jwt";
+import { accessTokenOptions, refreshTokenOptions, sendToken } from "../utils/jwt";
 import { redis } from "../utils/redis";
+import { getUserById } from "../services/user.service";
+import cloudinary from "cloudinary"
 
 
 //register user
@@ -162,3 +164,214 @@ export const logoutUser=catchAsyncError(async(req:Request, res:Response,next:Nex
         return next(new ErrorHandler(error.message,400));
     }
 })
+
+
+//update access token
+export const updateAccessToken= catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        const refresh_token=req.cookies.refresh_token as string;
+        const decoded=jwt.verify(refresh_token, process.env.REFRESH_TOKEN as string) as JwtPayload;
+  
+        const message="Could not refresh token"
+        if(!decoded){
+            return next(new ErrorHandler(message,400));
+        }
+
+        const session= await redis.get(decoded.id) as string;
+
+        if(!session){
+            return next(new ErrorHandler(message,400));
+        }
+
+        const user=JSON.parse(session); 
+
+        // make access & refresh token
+        const accessToken=jwt.sign({id:user._id},process.env.ACCESS_TOKEN as string,{expiresIn:"5m"});
+
+        const refreshToken=jwt.sign({id:user._id},process.env.REFRESH_TOKEN as string,{expiresIn:"3d"})
+
+        req.user=user; // set user to reqest
+
+        //update cookie
+        // the third parameter is my own way of setting the cookie options, if I don't want to use the default cookie options
+        res.cookie("access_token",accessToken,accessTokenOptions);
+        res.cookie("refresh_token",refreshToken,refreshTokenOptions);
+
+        res.status(200).json({
+            status:"success",
+            accessToken
+        })
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+//get user info
+export const getUserInfo= catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        const userId=req.user?._id as string;
+        getUserById(userId,res);
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+// SOCIAL AUTH: This will be implemented in frontend, we will use next auth, here just get email,name and avatar from google or facebook and send new token is user not exist in db or send token if user exist in db
+
+interface isSocialAuthBody{
+    email:string;
+    name:string;
+    avatar:string;
+}
+
+export const socialAuth=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        const {email,name,avatar}=req.body as isSocialAuthBody;
+        const user= await userModel.findOne({email});
+
+        if(!user){
+            const newUser=await userModel.create({email,name,avatar});
+            sendToken(newUser,200,res);
+        }
+        else{
+            sendToken(user,200,res);
+        }
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+// update user inf0 : If user wants to update his/her name or email
+
+interface IupdateUserInfo{
+    name?:string;
+    email?:string;
+}
+
+export const updateUserInfo=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+
+        const {name,email}=req.body as IupdateUserInfo;
+        const userId=req.user?._id as string; // get from redis
+        const user=await userModel.findById(userId); // get from db
+
+        if(email && user){
+            const isEmailExists=await userModel.findOne({email});
+
+            if(isEmailExists){
+                return next(new ErrorHandler("Email already exists",400));
+            }
+            user.email=email;
+        }
+
+        if(name && user){
+            user.name=name;
+        }
+
+        await user?.save();
+
+        const setToRedis= await redis.set(userId, JSON.stringify(user));
+        // console.log(setToRedis);
+
+        res.status(201).json({
+            success:true,
+            user
+        })
+        
+
+    }catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+// update password
+
+interface IupdatePassword{
+    oldPassword:string;
+    newPassword:string;
+}
+
+export const updatePassword=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+
+        const {oldPassword,newPassword}=req.body as IupdatePassword;
+
+        const user=await userModel.findById(req.user?._id).select("+password");
+
+        if(user?.password===undefined){
+            return next(new ErrorHandler("Password modification not possible",400));
+        }
+
+        const isPasswordMatched=await user?.comparePassword(oldPassword);
+
+        if(!isPasswordMatched){
+            return next(new ErrorHandler("Old password is incorrect",400));
+        }
+
+        user.password=newPassword;
+
+        await user.save();
+
+        await redis.set(req.user?._id as string, JSON.stringify(user));
+
+        res.status(201).json({
+            success:true,
+            user
+        });
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+// update profile picture
+interface IupdateProfilePic{
+    avatar:string; 
+}
+
+export const updateProfilePic=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        const {avatar}=req.body;
+
+        const userId=req.user?._id as string;
+
+        const user=await userModel.findById(userId);
+
+        if(user && avatar){
+            if(user?.avatar.public_id){ // first delete the previous image from cloudinary if it avatar exists
+                await cloudinary.v2.uploader.destroy(user?.avatar?.public_id);
+            }
+            else {
+                const myCloud=await cloudinary.v2.uploader.upload(avatar,{
+                    folder:"avatars",
+                    width:150
+                });
+
+                user.avatar={
+                    public_id:myCloud.public_id,
+                    url:myCloud.secure_url
+                }
+            }
+        }
+
+        await user?.save();
+        await redis.set(userId, JSON.stringify(user));
+
+        res.status(200).json({
+            success:true,
+            user
+        })
+
+    }catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+

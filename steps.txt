@@ -71,4 +71,35 @@ for auth.ts create @types folder within server and then create custom.d.ts
 
 Write redis cache delete in logout fn in user_controller.ts
 
+In auth.ts write validate user role fn
+In user_controller.ts write update access token fn. This will refresh the access token in every 5min, so the authentication system is hack proof. This kind of auth system is used by facebook, insta as told by sir
+
+Add new user routes '/refresh' and test it
+
+To create get user info:
+Create services folder and create user.service.ts
+
+Now write get user info in user_controller.ts
+
+Create route '/me' and test
+
+Create social auth in user_controller.ts and then add the route user_routes.ts and test.
+
+create update user info in user_controller.ts , this is for if user wants to update name,email
+
+create update user info route in user route and test: see updation occurs in both mongodb and redis
+
+
+Now create update password fn in user_controller.ts
+
+now update profile pic in user_controller.ts
+
+Write cloudinary connection in server.ts
+Test update profile pic api
+
+
+Now I am starting to design course section 
+
+
+
 -Start from: 3:21:30
