@@ -111,6 +111,16 @@ Create new route in routes folder named course.routes.ts
 
 Add course route to app.ts
 
+Write various fns to course_controller.ts
+
+Now create courseModel and notificationModel in models folder
+
+Now in controllers folder write order_controller.ts
+
+Now in services folder write order.services.ts
+
+Create notification_controller.ts on controllers folder
+Write and test
 
 
--Start from: 4:57
+-Start from: 6:56:20

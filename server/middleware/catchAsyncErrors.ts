@@ -39,6 +39,9 @@ const catchAsyncError = (thefn: any) => async (req: Request, res: Response, next
     }
 };
 
+thefn will be the required fn within which I actually write try catch block and required works
+To not write the above catchAsyncError function, we just included in the middleware folder and imported it in the required files
+
 This version uses the async keyword and a try-catch block to handle errors:
 import { Request, Response, NextFunction } from 'express';
 
