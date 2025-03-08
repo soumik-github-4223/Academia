@@ -99,7 +99,18 @@ Test update profile pic api
 
 
 Now I am starting to design course section 
+In models create course_model.ts for schema design
+
+Now create course and edit course functionality
+
+In controllers folder create course_controller.ts
+
+In services folder write course.service.ts
+
+Create new route in routes folder named course.routes.ts
+
+Add course route to app.ts
 
 
 
--Start from: 3:21:30
+-Start from: 4:57
