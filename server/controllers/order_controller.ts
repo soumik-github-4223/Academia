@@ -8,7 +8,7 @@ import path from "path";
 import ejs from "ejs";
 import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notificationModel";
-import { newOrder } from "../services/order.services";
+import { getAllOrdersService, newOrder } from "../services/order.services";
 
 
 //create order
@@ -80,7 +80,15 @@ export const createOrder=catchAsyncError(async(req:Request,res:Response,next:Nex
 })
 
 
+// get all orders: for admin
+export const getAllOrders=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        getAllOrdersService(res);
 
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
 
 
 

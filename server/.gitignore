@@ -14,5 +14,4 @@ yarn-error.log*
 # Build output
 dist/
 
-#.vscode folder
-.vscode/
+

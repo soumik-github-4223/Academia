@@ -1,7 +1,7 @@
 /*this code sets up a POST endpoint at /registration that will trigger the registerUser function to handle user registration logic. */
 
 import express from 'express';
-import { activateUser, getUserInfo, loginUser, logoutUser, registerUser, socialAuth, updateAccessToken, updatePassword, updateProfilePic, updateUserInfo } from '../controllers/user_controller';
+import { activateUser, deleteUser, getAllUsers, getUserInfo, loginUser, logoutUser, registerUser, socialAuth, updateAccessToken, updatePassword, updateProfilePic, updateUserInfo, updateUserRole } from '../controllers/user_controller';
 import { authorizeRoles, isAuthenticated } from '../middleware/auth';
 const UserRouter = express.Router();
 
@@ -24,5 +24,12 @@ UserRouter.put("/update-user-info",isAuthenticated,updateUserInfo);
 UserRouter.put("/update-user-password",isAuthenticated,updatePassword);
 
 UserRouter.put("/update-user-profilepic",isAuthenticated,updateProfilePic);
+
+UserRouter.get("/get-all-users",isAuthenticated,authorizeRoles("admin"),getAllUsers);
+
+UserRouter.put( "/update-user-role",isAuthenticated,authorizeRoles("admin"),updateUserRole);
+
+UserRouter.delete( "/delete-user/:id",isAuthenticated,authorizeRoles("admin"),deleteUser);
+
 
 export default UserRouter; // export the router

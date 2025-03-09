@@ -122,5 +122,27 @@ Now in services folder write order.services.ts
 Create notification_controller.ts on controllers folder
 Write and test
 
+Now write notification read status in notification_controller
+
+Do CRON job for deleting notification, like after 30 days old notifications will be automatically deleted
+Write code in dor that in notification_controller.ts
+
+Do npm i node-cron @types/node-cron 
+Go to node cron website to understand how cron works
+
+Create get all orders,users,courses api : This is required in admin dashboard to show
+
+Create delete course, user in respective controllers and test it
+
+Now create analytics apis
+
+Create analyticsGenerator.ts in utils folder
+
+Create all order,user,course analytics in analytics_controller.ts 
+Create analytics_routes and test
+
+
+Not doing functionality to change data in landing page which starts from 8:00:00 approx
+
 
 -Start from: 6:56:20

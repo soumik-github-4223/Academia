@@ -1,11 +1,11 @@
 import expresss from 'express';
-import { isAuthenticated } from '../middleware/auth';
-import { createOrder } from '../controllers/order_controller';
+import { authorizeRoles, isAuthenticated } from '../middleware/auth';
+import { createOrder, getAllOrders } from '../controllers/order_controller';
 const orderRouter=expresss.Router();
 
 orderRouter.post("/create-order",isAuthenticated,createOrder);
 
-
+orderRouter.get("/get-all-orders",isAuthenticated,authorizeRoles("admin"),getAllOrders);
 
 
 

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsyncError } from "../middleware/catchAsyncErrors";
 import ErrorHandler from "../utils/ErrorHandler";
 import cloudinary from 'cloudinary';
-import { createCourse } from "../services/course.service";
+import { createCourse, getAllCoursesService } from "../services/course.service";
 import CourseModel from "../models/course_model";
 import { redis } from "../utils/redis";
 import { isJsxCallLike } from "typescript";
@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import NotificationModel from "../models/notificationModel";
 
 
 //upload course
@@ -226,6 +227,12 @@ export const addQuestion=catchAsyncError(async(req:Request, res:Response, next:N
         //add question to the content
         courseContent.questions.push(newQuestion);
 
+        await NotificationModel.create({
+            user:req.user?._id,
+            title:"New question received",
+            message: `You have a new question im ${courseContent.title}`
+        });
+
         //save the updated course
         await course?.save();
 
@@ -288,6 +295,12 @@ export const addedAnswer=catchAsyncError(async(req:Request, res:Response, next:N
 
         if(req.user?.id ===question.user._id){
             //create notification
+            await NotificationModel.create({
+                user:req.user?._id,
+                title:"Question Answered",
+                message:`Your question has been answered in ${courseContent.title}`
+            });
+
         }
         else{
             const data={
@@ -390,5 +403,42 @@ export const addReview=catchAsyncError(async(req:Request, res:Response, next:Nex
 
 // add comment to review by admin : not done
 
+
+//get all courses
+export const getAllCourses=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+        getAllCoursesService(res);
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
+
+
+// delete course : for admin access only
+export const deleteCourse=catchAsyncError(async(req:Request, res:Response,next:NextFunction)=>{
+    try{
+
+        const {id}=req.params;
+
+        const user=await CourseModel.findById(id);
+        if(!user){
+            return next(new ErrorHandler("User not found",404));
+        }
+
+        await user.deleteOne({id});
+
+        await redis.del(id);
+
+        res.status(200).json({
+            success:true,
+            message:"Course deleted successfully"
+        })
+
+
+    } catch(error:any){
+        return next(new ErrorHandler(error.message,400));
+    }
+})
 
 
