@@ -1,10 +1,12 @@
+Academia backend building steps: 
+
 Create server folder
 Open terminal in server folder and run npm init. In the entry point write server.js -> After running package.json will be generated 
 Now do "npm i bcryptjs cookie-parser cors dotenv express ioredis jsonwebtoken mongoose ts-node-dev @types/bcryptjs @types/cookie-parser @types/cors @types/express @types/jsonwebtoken @types/node typescript" in terminal
 Create app.ts -> server.ts
 Add "dev": "ts-node-dev --respawn --transpile-only src/server.ts" to package.
 
-Add tsconfig.json file to compile typescript, otherwise it will give error (not shown in video)
+Add tsconfig.json file to compile typescript, otherwise it will give error (not shown)
 
 Now after writing some basic routes in app.ts we create utils folder and create db.ts
 
@@ -144,5 +146,8 @@ Create analytics_routes and test
 
 Not doing functionality to change data in landing page which starts from 8:00:00 approx
 
+Advance cache maitaining features
 
--Start from: 6:56:20
+If an user is inactive for 7 days then delete them from cache(redis). And for every visit of the user update the session and wait for next 7 days before delete
+
+For testing apis first login then test and in between run refresh token api to renew the access token

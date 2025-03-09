@@ -116,7 +116,7 @@ export const getSingleCourse
         else{    
             const course=await CourseModel.findById(req.params.id).select("-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links");
 
-            await redis.set(courseId,JSON.stringify(course));
+            await redis.set(courseId,JSON.stringify(course),'EX',604800);
 
             res.status(200).json({
                 success:true,
@@ -148,7 +148,7 @@ export const getAllCourse
         else{
             const courses=await CourseModel.find().select("-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links");
 
-            await redis.set("allCourses",JSON.stringify(courses));
+            await redis.set("allCourses",JSON.stringify(courses),'EX',604800);
 
             res.status(200).json({
                 success:true,

@@ -172,7 +172,7 @@ export const updateAccessToken= catchAsyncError(async(req:Request, res:Response,
         const refresh_token=req.cookies.refresh_token as string;
         const decoded=jwt.verify(refresh_token, process.env.REFRESH_TOKEN as string) as JwtPayload;
   
-        const message="Could not refresh token"
+        const message="Please login first."
         if(!decoded){
             return next(new ErrorHandler(message,400));
         }
@@ -196,6 +196,9 @@ export const updateAccessToken= catchAsyncError(async(req:Request, res:Response,
         // the third parameter is my own way of setting the cookie options, if I don't want to use the default cookie options
         res.cookie("access_token",accessToken,accessTokenOptions);
         res.cookie("refresh_token",refreshToken,refreshTokenOptions);
+
+        await redis.set(user._id,JSON.stringify(user),'EX',604800); // set the user to redis for 7 days
+
 
         res.status(200).json({
             status:"success",

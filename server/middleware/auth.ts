@@ -28,7 +28,7 @@ export const isAuthenticated=catchAsyncError(async (req:Request, res:Response, n
     // console.log(user);
 
     if(!user){
-        return next(new ErrorHandler("User not found",400));
+        return next(new ErrorHandler("Please login first to access this resource",400));
     }
 
     req.user= JSON.parse(user);
