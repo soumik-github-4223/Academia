@@ -1,0 +1,25 @@
+Create next js app named "client" by using npx create-next-app@latest
+Then don't use src directory and turbopack, else do yes for everything
+Now in the video tailwind.config.ts file is present is their project but in mine it is not, so create the file and write the code there
+
+Do npm i next-themes in client, Important for implementing dark and light mode
+
+Come to app/page.tsx and remove all things and write our own code
+
+We need some helper components so create utils folder under app
+
+create Heading.tsx in utils folder to keep the metadata 
+Now come to app/page.tsx and render Heading component by passing props title,description,keywords
+
+Update global.css in app : write hero-animation and keyframes
+
+Create theme-provider.tsx in utils
+
+Update layout.tsx in app
+
+
+Update Header.tsx in components 
+Create NavItems,tsx in utils folder
+
+start from 35:00
+
