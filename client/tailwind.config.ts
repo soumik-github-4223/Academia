@@ -15,7 +15,8 @@ const config: Config = {
         },
         backgroundImage:{ // default background image
             'gradient-radial':'radial-gradient(var(--tw-gradient-stops))',
-            'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+            'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+            
         },
         screens:{ //custom screen size
             "1000px": "1000px", 

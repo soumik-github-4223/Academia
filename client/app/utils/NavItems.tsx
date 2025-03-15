@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { act } from "react";
+import React from "react";
 
 export const navItemsData = [
   {
@@ -32,7 +32,7 @@ type Props = {
 const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
   return (
     <>
-      <div className="800px:flex">
+      <div className="hidden 800px:flex">
         {navItemsData &&
           navItemsData.map((i, index) => (
             <Link href={`${i.url}`} key={index} passHref>

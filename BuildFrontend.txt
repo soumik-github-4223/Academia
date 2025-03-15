@@ -21,5 +21,16 @@ Update layout.tsx in app
 Update Header.tsx in components 
 Create NavItems,tsx in utils folder
 
+Create ThemeSwitcher.tsx in utils
+
+NOTE: For named export like export const Fn() we need to import in curly braces like import {Fn} from ..., but for default export like 
+const Fn=()=>{
+    //code
+}
+export default Fn;
+For above type we can import without curly braces
+
+
+
 start from 35:00
 

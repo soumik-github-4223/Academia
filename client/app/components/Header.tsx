@@ -1,7 +1,9 @@
 "use-client";
 import Link from "next/link";
 import React, { FC, useState } from "react";
-import NavItems from "../utils/NavItems"
+import NavItems from "../utils/NavItems";
+import { ThemeSwitcher } from "../utils/ThemeSwitcher";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 type Props = {
   open: boolean;
@@ -9,7 +11,7 @@ type Props = {
   activeItem: number;
 };
 
-const Header: FC<Props> = ({activeItem}) => {
+const Header: FC<Props> = ({ activeItem }) => {
   const [active, setactive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -45,10 +47,15 @@ const Header: FC<Props> = ({activeItem}) => {
               </Link>
             </div>
             <div className="flex items-center">
-                <NavItems
-                    activeItem={activeItem}
-                    isMobile={false}
+              <NavItems activeItem={activeItem} isMobile={false} />
+              <ThemeSwitcher /> {/*only for mobile*/}
+              <div className="800px:hidden">
+                <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(true)}
                 />
+              </div>
             </div>
           </div>
         </div>
