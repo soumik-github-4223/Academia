@@ -30,7 +30,24 @@ const Fn=()=>{
 export default Fn;
 For above type we can import without curly braces
 
+Make the header and hero section and also mobile view with sidebar open close functionality
+
+Now install material ui & more : npm install @mui/material @emotion/react @emotion/styled react-hot-toast react-redux @reduxjs/toolkit formik yup
+
+In header.tsx, in below write login signup logic, create CustomModal.tsx in utils. This is a helper component
+
+Now create login component in components/auth folder
+
+create styls/style.ts to use similar styles
+
+Create login component then signup component then verification component
+
+Connect redux: create redux folder and folders within it. And write the files
+
+We are using RTT query. See the use of it in detail
+Create authApi.ts 
 
 
-start from 40:00
+
+start from 2:07:40
 

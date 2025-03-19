@@ -2,16 +2,23 @@
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import NavItems from "../utils/NavItems";
-import { ThemeSwitcher } from "../utils/ThemeSwitcher";
+// import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import CustomModal from "../utils/CustomModal";
+import Login from "../components/Auth/Login";
+import Signup from "../components/Auth/Signup";
+import Verification from "../components/Auth/Verification";
+
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route: string;
+  setroute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen }) => {
+const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
   const [active, setactive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -26,13 +33,13 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
     });
   }
 
-  const handleClose=(e:any)=>{
-    if(e.target.id==="screen"){
+  const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).id === "screen") {
       {
-        setOpenSidebar(false)
+        setOpenSidebar(false);
       }
     }
-  }
+  };
 
   return (
     <div className="w-full relative">
@@ -79,33 +86,83 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
         {/* mobile sidebar */}
         <div
           className={`fixed w-full h-screen top-0 left-0 z-[99999] transition-all duration-500 ${
-            openSidebar ? "bg-[#0000024] dark:bg-[unset] opacity-100" : "opacity-0 pointer-events-none"
+            openSidebar
+              ? "bg-[#0000024] dark:bg-[unset] opacity-100"
+              : "opacity-0 pointer-events-none"
           }`}
           onClick={handleClose}
           id="screen"
         >
           <div
-            className={`w-[70%] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 fixed top-0 right-0 z-[99999999] transition-transform duration-500 ${
+            className={`w-[75%] max-w-[320px] h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 fixed top-0 right-0 z-[99999999] shadow-lg rounded-l-lg transition-transform duration-500 ${
               openSidebar ? "translate-x-0" : "translate-x-full"
             }`}
           >
-            <div className="p-5">
-              <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
-          size={25}
-          className="cursor-pointer ml-5 my-2 dark:text-white text-black"
-          onClick={() => setOpen(true)}
-              />
-              <br />
-              <br />
-              <p className="text-[16px] px-2 pl-5 text-black dark:text-white">
-          Copyright &copy;2025 Academia
-              </p>
+            <div className="p-6 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                  Menu
+                </h2>
+                <HiOutlineUserCircle
+                  size={28}
+                  className="cursor-pointer text-gray-600 dark:text-gray-300"
+                  onClick={() => setOpen(true)}
+                />
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                <NavItems activeItem={activeItem} isMobile={true} />
+              </div>
+              <div className="mt-6 border-t pt-4 border-gray-300 dark:border-gray-700">
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+                  Copyright &copy; 2025 Academia
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        
       </div>
+
+      {route === "Login" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setroute={setroute}
+              activeItem={activeItem}
+              component={Login}
+            />
+          )}
+        </>
+      )}
+
+      {route === "Sign-Up" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setroute={setroute}
+              activeItem={activeItem}
+              component={Signup}
+            />
+          )}
+        </>
+      )}
+
+      {route === "Verification" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setroute={setroute}
+              activeItem={activeItem}
+              component={Verification}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

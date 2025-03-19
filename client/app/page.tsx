@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, {
   FC,
   useState,
@@ -12,6 +12,7 @@ interface Props {}
 const Page: FC<Props> = () => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
+  const [route, setroute] = useState("Login");
 
   return (
     <div>
@@ -20,9 +21,8 @@ const Page: FC<Props> = () => {
         description="Academia is a learning plaform for technical courses"
         keywords="Academia, technical courses, learning, Programming"
       />
-      <Header open={open} setOpen={setOpen} activeItem={activeItem} />
-      
-      <Hero/>
+      <Header open={open} setOpen={setOpen} activeItem={activeItem} setroute={setroute} route={route} />
+      <Hero />
     </div>
   );
 };

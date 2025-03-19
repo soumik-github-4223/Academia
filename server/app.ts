@@ -20,7 +20,8 @@ app.use(cookieParser());
 //cors = Cross origin resource sharing Used for security
 //cors helps us to hit the api only from our origin, not from anywhere else
 app.use(cors({
-    origin: process.env.ORIGIN
+    origin: ['http://localhost:3000'],
+    credentials: true
 }));
 
 
