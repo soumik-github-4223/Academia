@@ -13,6 +13,7 @@ const config: Config = {
             Poppins:["var(--font-Poppins)"],
             Josefin:["var(--font-Josefin)"],
         },
+        
         backgroundImage:{ // default background image
             'gradient-radial':'radial-gradient(var(--tw-gradient-stops))',
             'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

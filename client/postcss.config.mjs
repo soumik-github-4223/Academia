@@ -3,3 +3,13 @@ const config = {
 };
 
 export default config;
+
+//copilot code
+// const config = {
+//   plugins: {
+//     tailwindcss: {},
+//     autoprefixer: {},
+//   },
+// };
+
+// export default config;
