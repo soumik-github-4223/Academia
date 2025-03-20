@@ -1,6 +1,6 @@
 "use-client";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 // import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
@@ -8,7 +8,12 @@ import CustomModal from "../utils/CustomModal";
 import Login from "../components/Auth/Login";
 import Signup from "../components/Auth/Signup";
 import Verification from "../components/Auth/Verification";
-
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import avatar from "../../public/assets/avatar.png";
+import { useSession } from "next-auth/react";
+import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 type Props = {
   open: boolean;
@@ -21,6 +26,27 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
   const [active, setactive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { user } = useSelector((state: any) => state.auth);
+  const {data}=useSession();  // for getting data from social logins
+  // console.log("Data is:",data);
+
+  // console.log("User is:",user);
+  const [socialAuth,{isSuccess,error}]=useSocialAuthMutation();
+
+  useEffect(() => {
+    
+    if(!user){
+      if(data){
+        socialAuth({email:data?.user?.email, name:data?.user?.name,avatar: data?.user?.image})
+      }
+    }
+    
+    if(isSuccess){
+      toast.success("Login successfull")
+    }
+  }, [data,user])
+  
+  
 
   if (typeof window !== "undefined") {
     // for sticky header
@@ -74,11 +100,21 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
                 />
               </div>
 
-              <HiOutlineUserCircle
-                size={25}
-                className="hidden md:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              {user ? (
+                <Link href={"/profile"}>
+                  <Image
+                    src={user?.avatar ? user.avatar : avatar}
+                    alt="avatar"
+                    className="w-[30px] h-[30px] rounded-full cursor-pointer "
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  size={25}
+                  className="hidden md:block cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpen(true)}
+                />
+              )}
             </div>
           </div>
         </div>

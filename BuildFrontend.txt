@@ -47,7 +47,19 @@ Connect redux: create redux folder and folders within it. And write the files
 We are using RTT query. See the use of it in detail
 Create authApi.ts 
 
+In authentication : we are getting the token from backend and we are setting that globally, for that token can be used from everywhere
+authApi.ts file is responsible for that
 
+Now for social auth create pages folder and within that api/_app.tsx folder
+
+Now in api folder create auth then within that create [...nextauth].ts file
+
+To get Google client id and secret:
+Now go to https://console.cloud.google.com/cloud-resource-manager -> click create project -> select the project -> goto api & services -> credentials -> create credentials -> Outh client id -> configure consent screen -> from sidebar api & services> enable api & services -> credentials -> create credentials -> oauth client id -> configure consent screen -> create oauth client id -> in Authorized JavaScript origins add http://localhost:3000 -> add callback uri = http://localhost:3000/api/auth/callback/google -> create-> Then copy client id and secret and put in env of client
+
+Now To get github client id and secret:
+
+Go to github -> settings -> developer settings -> Oauth apps-> new oauth app -> give app name , hompage url =http://localhost:3000 , callback url = http://localhost:3000/api/auth/callback/github -> register application -> get client id and secret 
 
 start from 2:07:40
 

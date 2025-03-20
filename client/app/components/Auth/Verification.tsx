@@ -1,7 +1,9 @@
+import { useActivationMutation } from "@/redux/features/auth/authApi";
 import { styles } from "../../../app/styles/style";;
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { VscWorkspaceTrusted } from 'react-icons/vsc'
+import { useSelector } from "react-redux";
 
 type Props = {
     setroute:(route:string)=>void;
@@ -13,8 +15,33 @@ type verifyNumber={
     "2":string;
     "3":string;
 }
-
+ 
 const Verification:FC<Props>=({setroute}) => {
+    const {token}=useSelector((state:any)=>state.auth); // global state to get the token
+    // console.log("Token is:",token);
+     
+    const [activation,{isSuccess,error}]=useActivationMutation(); // mutation to activate the user
+
+    // console.log(useSelector((state: any) => state));
+    // console.log("Redux state (auth):", useSelector((state: any) => state.auth));
+    // console.log("Token from Redux state:", token);
+
+    useEffect(()=>{
+        if(isSuccess){
+            toast.success("Account Activated Successfully");
+            setroute("Login");
+        }
+        if(error){
+            if("data" in error){
+                const errorData = error as { data: { message: string } };
+                toast.error(errorData.data.message);
+                setInvalidError(true)
+            } else{
+                console.log("An error occured in verification:",error);
+            }
+        }
+    },[isSuccess,error]);
+
     const [invalidError, setInvalidError] = useState(false);
     const inputRefs=[
         useRef<HTMLInputElement>(null),
@@ -31,7 +58,16 @@ const Verification:FC<Props>=({setroute}) => {
     });
 
     const verificationHandler=async()=>{
-        setInvalidError(true)
+        const verificationNumber=Object.values(verifyNumber).join(""); // converts the number to a single string
+        if(verificationNumber.length<4){
+            setInvalidError(true);
+            return;
+        }
+        // console.log(token,verificationNumber);
+        await activation({
+            activation_token:token,
+            activation_code:verificationNumber
+        });
     }
 
     const handleInputChange=(index:number, value:string)=>{
