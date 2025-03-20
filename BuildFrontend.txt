@@ -61,5 +61,13 @@ Now To get github client id and secret:
 
 Go to github -> settings -> developer settings -> Oauth apps-> new oauth app -> give app name , hompage url =http://localhost:3000 , callback url = http://localhost:3000/api/auth/callback/github -> register application -> get client id and secret 
 
-start from 2:07:40
+Make a loader by creating a Loader folder under components.
+
+And wrap the loader in layout.tsx
+
+Now create profile page .
+
+In profile page if no user is logged in then if user tries to enter the /profile route then they will be redirected to homepage. For this we have to create custom hooks
+
+start from 3:8:50
 

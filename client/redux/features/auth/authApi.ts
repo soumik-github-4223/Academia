@@ -114,7 +114,7 @@ export const authApi = apiSlice.injectEndpoints({
             })
           );
         } catch (error) {
-          console.error("Error during registration:", error);
+          console.log("Error during registration:", error);
         }
       },
 
