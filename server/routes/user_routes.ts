@@ -11,7 +11,7 @@ UserRouter.post('/activate-user',activateUser);
 
 UserRouter.post('/login',loginUser);
 
-UserRouter.get('/logout',isAuthenticated,authorizeRoles("admin"),logoutUser); // isAuthenticated middleware is used to protect the route
+UserRouter.get('/logout',isAuthenticated,logoutUser); // isAuthenticated middleware is used to protect the route
 
 UserRouter.get("/refresh",updateAccessToken);
 

@@ -69,5 +69,9 @@ Now create profile page .
 
 In profile page if no user is logged in then if user tries to enter the /profile route then they will be redirected to homepage. For this we have to create custom hooks
 
-start from 3:8:50
+Create profile page, the components are there in Profile folder under components
+
+Change avatar is doing problem so I am not including it.
+
+start from 4:18:28
 

@@ -10,7 +10,7 @@ type Props = {};
 
 const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState(5);
   const [route, setroute] = useState("Login");
   const {user}=useSelector((state:any)=>state.auth);
 
@@ -18,7 +18,7 @@ const Page: FC<Props> = (props) => {
     <div>
       <Protected>
         <Heading
-          title={`Academia ${user.name} profile`}
+          title={`Academia Profile: ${user.name}`}
           description="Academia is a learning plaform for technical courses"
           keywords="Academia, technical courses, learning, Programming"
         />
@@ -29,7 +29,7 @@ const Page: FC<Props> = (props) => {
           setroute={setroute}
           route={route}
         />
-        <Profile/>
+        <Profile user={user} />
       </Protected>
     </div>
   );

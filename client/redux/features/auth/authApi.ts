@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userLoggedIn, userRegistration } from "./authSlice"; // adjust the import as needed
+import { userLoggedIn, userLoggedOut, userRegistration } from "./authSlice"; // adjust the import as needed
 import { apiSlice } from "../api/apiSlice";
 
 // 1. Define the base API slice
@@ -84,21 +84,20 @@ export const authApi = apiSlice.injectEndpoints({
           dispatch(
             userLoggedIn({
               accessToken: result.data.activationToken,
-              user:result.data.user
+              user: result.data.user,
             })
           );
         } catch (error) {
           console.error("Error during registration:", error);
         }
       },
-
     }),
 
     socialAuth: builder.mutation({
-      query: ({ email, name,avatar }) => ({
+      query: ({ email, name, avatar }) => ({
         url: "socialauth",
         method: "POST",
-        body: { email, name,avatar},
+        body: { email, name, avatar },
         credentials: "include" as const,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
@@ -110,17 +109,41 @@ export const authApi = apiSlice.injectEndpoints({
           dispatch(
             userLoggedIn({
               accessToken: result.data.activationToken,
-              user:result.data.user
+              user: result.data.user,
             })
           );
         } catch (error) {
           console.log("Error during registration:", error);
         }
       },
+    }),
 
+    logOut: builder.query({
+      query: () => ({
+        url: "logout",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          // console.log("Registration data",result.data);
+
+          dispatch(
+            userLoggedOut()
+          );
+        } catch (error) {
+          console.log("Error during logout:", error);
+        }
+      },
     }),
   }),
 });
 
 // 4. Export auto-generated hooks for your endpoints
-export const { useRegisterMutation, useActivationMutation, useLoginMutation, useSocialAuthMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useActivationMutation,
+  useLoginMutation,
+  useSocialAuthMutation,
+  useLogOutQuery
+} = authApi;
