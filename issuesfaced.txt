@@ -1,3 +1,7 @@
 Creating Dark light mode : not solved
 
 verification part where redux rtt query is used
+
+problems came because of conflicting versions of react and mateial ui modules.. like a functionality seen in YT and this is not supported anymore. This created a lot of problem to resolve
+Solved this by downrgading the versions and making it compatiable for all package. Did this by updating package.json and then installing node modules again
+
