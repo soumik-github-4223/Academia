@@ -83,5 +83,17 @@ NOTE: The height of the avatar in sidebar is not okay. Fix this later
 
 Now create app/admin/create-course/createCourse.tsx 
 
-start from 4:58:23
+Create courseinformation and coursedata components
+Create all sections(mean all active state values) of CreateCourse.tsx 
+
+Now During creation of courseplayer.tsx we go to videoCipher(account email: 8420, pas rev(129)) website which will provide security to our video, like no one can screen record and take ss
+
+Create videocipher account -> go to api keys-> click add api key -> copy the key and put it in .env of server. Also create custom player and add custom player with own customization pleyer
+
+Run npm i axios
+Create course preview page
+
+
+
+start from 6:54:20
 

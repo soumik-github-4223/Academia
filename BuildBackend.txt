@@ -151,3 +151,8 @@ Advance cache maitaining features
 If an user is inactive for 7 days then delete them from cache(redis). And for every visit of the user update the session and wait for next 7 days before delete
 
 For testing apis first login then test and in between run refresh token api to renew the access token
+
+Run npm i axios
+
+Update course_controller.ts by writing generateVideourl fn at the end
+

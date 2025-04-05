@@ -22,6 +22,44 @@ const CourseInformation: FC<Props> = ({
     setActive(active + 1);
   };
 
+  const handleFileChange = (e: any) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        if (reader.readyState === 2) {
+          setCourseInfo({ ...courseInfo, thumbnail: reader.result });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // drag and drop feature
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+  const handleDragLeave = (e: any) => {
+    e.preventDefault();
+    setDragging(false);
+  };
+
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setCourseInfo({ ...courseInfo, thumbnail: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="w-[80%] m-auto mt-24">
       <form onSubmit={handleSubmit} className={`${styles.label}`}>
@@ -146,8 +184,46 @@ const CourseInformation: FC<Props> = ({
 
         <br />
 
-        {/* start from here video line 150*/}
-
+        <div className="w-full">
+          <input
+            type="file"
+            accept="image/*"
+            id="file"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <label
+            htmlFor="file"
+            className={`w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${
+              dragging ? "bg-blue-500" : "bg-transparent"
+            }`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            {courseInfo.thumbnail ? (
+              <img
+                src={courseInfo.thumbnail}
+                alt=""
+                className="max-h-full w-full object-cover"
+              />
+            ) : (
+              <span className="text-black dark:text-white">
+                Drag and drop your thumbnail here or click to browse
+              </span>
+            )}
+          </label>
+        </div>
+        <br />
+        <div className="w-full flex items-center justify-end">
+          <input
+            type="submit"
+            value="Next"
+            className="w-full md:w-[180px] h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          />
+        </div>
+        <br />
+        <br />
       </form>
     </div>
   );

@@ -200,10 +200,11 @@ export const updateAccessToken= catchAsyncError(async(req:Request, res:Response,
         await redis.set(user._id,JSON.stringify(user),'EX',604800); // set the user to redis for 7 days
 
 
-        res.status(200).json({
-            status:"success",
-            accessToken
-        })
+        // res.status(200).json({
+        //     status:"success",
+        //     accessToken
+        // }) // no need to send response, just pass the request to next middleware
+        next(); // pass the request to next middleware
 
     } catch(error:any){
         return next(new ErrorHandler(error.message,400));

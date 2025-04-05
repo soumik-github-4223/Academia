@@ -11,6 +11,7 @@ import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notificationModel";
+import axios from "axios";
 
 
 //upload course
@@ -442,3 +443,24 @@ export const deleteCourse=catchAsyncError(async(req:Request, res:Response,next:N
 })
 
 
+// generate video url
+export const generateVideoUrl = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { videoId } = req.body;
+      const response = await axios.post(
+        `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
+        { ttl: 300 },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Apisecret ${process.env.VDOCIPHER_API_SECRET}`,
+          },
+        }
+      );
+  
+      res.json(response.data);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  });
