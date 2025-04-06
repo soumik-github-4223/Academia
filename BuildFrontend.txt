@@ -92,8 +92,17 @@ Create videocipher account -> go to api keys-> click add api key -> copy the key
 
 Run npm i axios
 Create course preview page
+After creating all parts of the CreateCourse.tsx we write the api endpoints in redux/courses/courseApi.ts
 
+Now create page for Live courses. So create app/admin/courses/page.tsx
 
+Create AllCourses.tsx for Live Courses option in app/admin/courses/AllCourses.tsx
+For this intall npm i @mui/x-data-grid, this will show all courses in a chart format. 
+Now for option Users, create app/admin/users/page.tsx -> create all user component -> create endpoint in userApi.ts
+
+Manage team functionality(add admin to the team) is omitted. That was present in video 2 in 7:20:00 time
+
+Edit course functionality is omitted, it's present in 7:42:00
 
 start from 6:54:20
 

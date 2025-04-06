@@ -25,11 +25,11 @@ UserRouter.put("/update-user-password",isAuthenticated,updatePassword);
 
 UserRouter.put("/update-user-profilepic",isAuthenticated,updateProfilePic);
 
-UserRouter.get("/get-all-users",isAuthenticated,authorizeRoles("admin"),getAllUsers);
+UserRouter.get("/get-all-users", updateAccessToken,isAuthenticated,authorizeRoles("admin"),getAllUsers);
 
 UserRouter.put( "/update-user-role",isAuthenticated,authorizeRoles("admin"),updateUserRole);
 
-UserRouter.delete( "/delete-user/:id",isAuthenticated,authorizeRoles("admin"),deleteUser);
+UserRouter.delete( "/delete-user/:id", updateAccessToken,isAuthenticated,authorizeRoles("admin"),deleteUser);
 
 
 export default UserRouter; // export the router
