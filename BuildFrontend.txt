@@ -113,6 +113,7 @@ For chart go to Recharts website and install it npm install recharts
 Create CourseAnalytics api endpoint in redux/features/analyticsApi.ts
 Steps to create analytics : Backend analytics apis are ready. -> just make the endpoint in redux folder -> create analytics folder under admin -> create required analytics component
 
+Create Dashboard page at lat
 
 start from 6:54:20
 

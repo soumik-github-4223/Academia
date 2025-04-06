@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import Loader from "../../../../../app/components/Loader/Loader";
 
+// Mock data
 // const analyticsData = [
 //   {
 //     name: "Page A",
@@ -102,7 +103,7 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
             <YAxis />
             <Tooltip />
             {!isDashboard && <Legend />}
-            <Line type="monotone" dataKey="Count" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="count" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
       </div>

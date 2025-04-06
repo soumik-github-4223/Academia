@@ -1,90 +1,183 @@
-import React, { FC } from 'react'
-import UserAnalytics from '../Analytics/UserAnalytics';
-import { BiBorderLeft } from 'react-icons/bi';
-import { Box, CircularProgress } from '@mui/material';
+import React from "react";
+import UserAnalytics from "../Analytics/UserAnalytics";
+import AllInvoices from "../Orders/AllInvoices";
+import { Box, Typography, Grid, Paper } from "@mui/material";
+import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
+import { BiBarChartAlt2 } from "react-icons/bi";
 
-type Props = {
-    open:boolean;
-    value?:number;
-}
+const DashBoardWidget = () => {
+  return (
+    <Box
+      sx={{
+        padding: "20px",
+        backgroundColor: "#f4f6f8",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Header */}
+      <Typography
+        variant="h4"
+        sx={{
+          fontWeight: "bold",
+          marginBottom: "20px",
+          color: "#111C43",
+        }}
+      >
+        Admin Dashboard
+      </Typography>
 
-const CircularProgressWithLabel:FC<Props> = ({open,value}) => {
-    return (
-        <Box sx={{ position: "relative", display: "inline-flex" }}>
-          <CircularProgress
-            variant="determinate"
-            value={value}
-            size={45}
-            color={value && value > 99 ? "info" : "error"}
-            thickness={4}
-            style={{ zIndex: open ? -1 : 1 }}
-          />
-          <Box
+      {/* Overview Cards */}
+      <Grid container spacing={3} sx={{ marginBottom: "30px" }}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
             sx={{
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              position: "absolute",
+              padding: "20px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#4d62d9",
+              color: "#fff",
+              borderRadius: "10px",
             }}
           >
-            {/* Add content here if needed */}
-          </Box>
-        </Box>
-      );
-}
+            <Box>
+              <Typography variant="h6">Total Users</Typography>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                12,345
+              </Typography>
+            </Box>
+            <AiOutlineUser size={40} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#3e4396",
+              color: "#fff",
+              borderRadius: "10px",
+            }}
+          >
+            <Box>
+              <Typography variant="h6">Total Orders</Typography>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                8,765
+              </Typography>
+            </Box>
+            <AiOutlineShoppingCart size={40} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#1f2a40",
+              color: "#fff",
+              borderRadius: "10px",
+            }}
+          >
+            <Box>
+              <Typography variant="h6">Revenue</Typography>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                $123,456
+              </Typography>
+            </Box>
+            <BiBarChartAlt2 size={40} />
+          </Paper>
+        </Grid>
+      </Grid>
 
-const DashBoardWidget: FC<Props> = ({open}) => {
-    return (
-        <div className="mt-[30px] min-h-screen">
-          <div className="grid grid-cols-[75%,25%]">
-            <div className="p-8">
-              <UserAnalytics isDashboard={true} />
-            </div>
-      
-            <div className="pr-8">
-              <div className="w-full dark:bg-[#111C43] rounded-sm shadow">
-                <div className="flex items-center p-5 justify-between">
-                  <div>
-                    <BiUserForLight
-                      className="dark:text-[#45CBA0] text-[#000] text-[30px]"
-                    />
-                    <h5 className="pt-2 font-Poppins dark:text-[#fff] text-black text-[20px]">
-                      450
-                    </h5>
-                    <h5 className="py-2 font-Poppins dark:text-[#45CBA0] text-black text-[20px] font-[400]">
-                      New Users
-                    </h5>
-                  </div>
-                  <CircularProgressWithLabel value={100} open={open} />
-                  <h5 className="text-center pt-4">+150%</h5>
-                </div>
-              </div>
-      
-              <div className="w-full dark:bg-[#111C43] rounded-sm shadow my-8">
-                <div className="flex items-center p-5 justify-between">
-                  <div>
-                    <BiBorderLeft
-                      className="dark:text-[#45CBA0] text-[#000] text-[30px]"
-                    />
-                    <h5 className="pt-2 font-Poppins dark:text-[#fff] text-black text-[20px]">
-                      120
-                    </h5>
-                    <h5 className="py-2 font-Poppins dark:text-[#45CBA0] text-black text-[20px] font-[400]">
-                      Sales Obtained
-                    </h5>
-                  </div>
-                  <CircularProgressWithLabel value={100} open={open} />
-                  <h5 className="text-center pt-4">+120%</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-}
+      {/* Analytics and Invoices */}
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "20px",
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "10px",
+                color: "#111C43",
+              }}
+            >
+              User Analytics
+            </Typography>
+            <UserAnalytics isDashboard={true} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "20px",
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "10px",
+                color: "#111C43",
+              }}
+            >
+              Order Analytics
+            </Typography>
+            {/* Placeholder for OrderAnalytics */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                color: "#888",
+              }}
+            >
+              <Typography>Order Analytics Coming Soon...</Typography>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "20px",
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "10px",
+                color: "#111C43",
+              }}
+            >
+              All Invoices
+            </Typography>
+            <AllInvoices isDashboard={true} />
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
 
-export default DashBoardWidget
+export default DashBoardWidget;
