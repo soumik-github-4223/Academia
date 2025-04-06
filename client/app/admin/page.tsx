@@ -24,8 +24,8 @@ const page = (props: Props) => {
             <AdminSidebar />
           </div>
 
-          <div className="w-[95%] ">
-            <DashboardHero/>
+          <div className="w-[95%] pl-[2rem] ">
+            <DashboardHero isDashboard={true}/>
           </div>
         </div>
       </AdminProtected>

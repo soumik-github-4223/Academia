@@ -310,13 +310,13 @@ const Sidebar = () => {
               {!isCollapsed && "Extras"}
             </Typography>
 
-            <Item
+            {/* <Item
               title="Settings"
               to="/admin/settings"
               icon={<SettingsIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <div onClick={logoutHandler}>
               <Item

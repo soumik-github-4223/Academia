@@ -102,7 +102,17 @@ Now for option Users, create app/admin/users/page.tsx -> create all user compone
 
 Manage team functionality(add admin to the team) is omitted. That was present in video 2 in 7:20:00 time
 
-Edit course functionality is omitted, it's present in 7:42:00
+Edit course functionality is omitted though the backend route is made for edit course, it's present in 7:42:00
+
+Edit banner image and hero page is omitted.
+
+Now create admin/course-analytics/page.tsx
+
+For chart go to Recharts website and install it npm install recharts
+
+Create CourseAnalytics api endpoint in redux/features/analyticsApi.ts
+Steps to create analytics : Backend analytics apis are ready. -> just make the endpoint in redux folder -> create analytics folder under admin -> create required analytics component
+
 
 start from 6:54:20
 
