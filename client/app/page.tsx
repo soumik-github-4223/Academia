@@ -6,6 +6,7 @@ import React, {
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
 import Hero from "./components/Route/Hero";
+import Courses from "./components/Route/Courses"
 
 interface Props {}
 
@@ -23,6 +24,7 @@ const Page: FC<Props> = () => {
       />
       <Header open={open} setOpen={setOpen} activeItem={activeItem} setroute={setroute} route={route} />
       <Hero />
+      <Courses/>
     </div>
   );
 };

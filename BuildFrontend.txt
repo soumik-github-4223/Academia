@@ -115,5 +115,5 @@ Steps to create analytics : Backend analytics apis are ready. -> just make the e
 
 Create Dashboard page at lat
 
-start from 6:54:20
+start from 11:30
 
