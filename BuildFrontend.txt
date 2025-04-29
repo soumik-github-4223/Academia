@@ -116,5 +116,13 @@ Steps to create analytics : Backend analytics apis are ready. -> just make the e
 Create Dashboard page at last
 
 Now fetch courses on the landing page by creating Courses.tsx component
-start from 11:30
+
+Build CourseCard.tsx component
+Build review component
+
+Build course page now, get make course/[id]/ page.tsx then make coursedetails page .
+
+
+
+start from 1:11:35
 

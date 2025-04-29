@@ -98,7 +98,7 @@ const CreateCourse = (props: Props) => {
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
-      courseContent: formattedCourseContentData,
+      courseData: formattedCourseContentData,
     };
 
     setCourseData(data);
@@ -107,6 +107,7 @@ const CreateCourse = (props: Props) => {
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
     if (!isLoading) { // this condition is used to prevent multiple clicks on the button , so after the first click it will not work again until the course is created
+      console.log(data);
       await createCourse(data);
     }
   };
