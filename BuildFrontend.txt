@@ -122,7 +122,25 @@ Build review component
 
 Build course page now, get make course/[id]/ page.tsx then make coursedetails page .
 
+Make stripe payment : 
+Make a pop up modal in coursedetails.tsx to show stripe payment page
+Now go to backend and implement (See BuildBackend)
 
+Now come to redux/features/orders/ordersApi.ts and get infos from backend apis
 
-start from 1:11:35
+install dependencis for stripe : npm i @stripe/stripe-js @stripe/react-stripe-js
+
+Come to coursedetailspage.tsx and modify
+
+Come to coursedetailspage.tsx and wrap coursedetails 
+
+Make CheckoutForm.tsx
+Go to stripe website -> settings -> payments -> payment method -> turn on the payment methods u want
+
+I have not added bank details to stripe, that's why payment will not be done..
+
+Now create course access page
+Create app/course-access/[id]/page.tsx
+
+start from 1:52:53
 

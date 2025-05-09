@@ -156,3 +156,12 @@ Run npm i axios
 
 Update course_controller.ts by writing generateVideourl fn at the end
 
+In order_controller.ts make a fn sendStripePublishableKey
+Now go to stripe website
+logged in to stripe using United States country
+
+install a dependency : npm i stripe
+Make newPayment fn in order_controller.ts
+Modify createOrder fn
+
+make route for payment in order_routes.ts
