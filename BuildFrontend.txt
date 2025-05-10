@@ -142,5 +142,5 @@ I have not added bank details to stripe, that's why payment will not be done..
 Now create course access page
 Create app/course-access/[id]/page.tsx
 
-start from 1:52:53
+start from 2:8:20
 
