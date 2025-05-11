@@ -186,7 +186,7 @@ export const updateAccessToken= catchAsyncError(async(req:Request, res:Response,
         const user=JSON.parse(session); 
 
         // make access & refresh token
-        const accessToken=jwt.sign({id:user._id},process.env.ACCESS_TOKEN as string,{expiresIn:"5m"});
+        const accessToken=jwt.sign({id:user._id},process.env.ACCESS_TOKEN as string,{expiresIn:"1d"});
 
         const refreshToken=jwt.sign({id:user._id},process.env.REFRESH_TOKEN as string,{expiresIn:"3d"})
 

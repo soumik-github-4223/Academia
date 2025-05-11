@@ -8,8 +8,8 @@ import CourseDetailsPage from "../../components/Course/CourseDetailsPage";
   }
 } */
 
-const page = ({ params }: { params: { id: string } }) => {
-  const { id } = params; // Directly access id from params
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params); // Unwrap params using React.use()
   return (
     <div>
       <CourseDetailsPage id={id} />
@@ -17,4 +17,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

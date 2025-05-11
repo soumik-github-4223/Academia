@@ -6,3 +6,5 @@ problems came because of conflicting versions of react and mateial ui modules.. 
 Solved this by downrgading the versions and making it compatiable for all package. Did this by updating package.json and then installing node modules again
 
 While unwrapping params got from url body we need to use 'use' in newer next js version otherwise it'll give error, copilot helped me to solve this issue quickly
+
+After login with email password, after each refresh automatically I am getting logged out

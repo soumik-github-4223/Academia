@@ -125,6 +125,7 @@ const CourseContentList: FC<Props> = (props) => {
               </div>
             )}
             <br />
+            <hr className="border-t border-gray-600" />
           </div>
         );
       })}
