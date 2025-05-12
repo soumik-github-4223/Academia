@@ -25,13 +25,7 @@ export const reviews = [
     comment:
       "The resources are top-notch and the platform is really intuitive. Highly recommended!",
   },
-  {
-    name: "Mina Davidson",
-    avatar: "https://i.pravatar.cc/150?u=mina_davidson",
-    profession: "Junior Web Developer | Indonesia",
-    comment:
-      "Structured lessons and engaging content. My web development skills improved so much!",
-  },
+  
   {
     name: "Kelly Yang",
     avatar: "https://i.pravatar.cc/150?u=kelly_yang",

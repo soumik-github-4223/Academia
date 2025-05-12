@@ -14,10 +14,10 @@ export const navItemsData = [
     name: "About",
     url: "/about",
   },
-  {
-    name: "Policy",
-    url: "/policy",
-  },
+  // {
+  //   name: "Policy",
+  //   url: "/policy",
+  // },
   {
     name: "FAQ",
     url: "/faq",

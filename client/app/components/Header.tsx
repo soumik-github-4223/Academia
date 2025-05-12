@@ -165,11 +165,26 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                   Menu
                 </h2>
-                <HiOutlineUserCircle
-                  size={28}
-                  className="cursor-pointer text-gray-600 dark:text-gray-300"
-                  onClick={() => setOpen(true)}
-                />
+                {user ? (
+                  <Link href={"/profile"}>
+                    <Image
+                      src={user?.avatar ? user.avatar.url : avatar}
+                      alt="avatar"
+                      width={30}
+                      height={30}
+                      className="w-[30px] h-[30px] rounded-full cursor-pointer "
+                      style={{
+                        border: activeItem == 5 ? "2px solid #ffc107" : "none",
+                      }}
+                    />
+                  </Link>
+                ) : (
+                  <HiOutlineUserCircle
+                    size={25}
+                    className="hidden md:block cursor-pointer dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                )}
               </div>
               <div className="flex-1 overflow-y-auto">
                 <NavItems activeItem={activeItem} isMobile={true} />
