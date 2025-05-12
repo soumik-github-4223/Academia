@@ -142,5 +142,20 @@ I have not added bank details to stripe, that's why payment will not be done..
 Now create course access page
 Create app/course-access/[id]/page.tsx
 
+Build all the components in course-access page
+
+Now make app/courses route to show all courses
+
+Now to make notification feature: see BuildBackend
+
+Now install : npm i socket.io-client
+
+Connect socket server by modifying layout.tsx in app folder
+
+Add socket.emit noti' feature to courseConteneMedia and other places where notification is required
+
+Now make notification folder in redux to fetch notifications from DB
+
+
 start from 3:32:21
 

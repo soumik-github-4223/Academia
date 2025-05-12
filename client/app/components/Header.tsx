@@ -12,8 +12,12 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import avatar from "../../public/assets/avatar.png";
 import { useSession } from "next-auth/react";
-import { useLogOutQuery, useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import {
+  useLogOutQuery,
+  useSocialAuthMutation,
+} from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
   open: boolean;
@@ -27,35 +31,43 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
   const [active, setactive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
-  const {data}=useSession();  // for getting data from social logins
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useLoadUserQuery(undefined, {});
+  const { data } = useSession(); // for getting data from social logins
   // console.log("Data is:",data);
 
   // console.log("User is:",user);
-  const [socialAuth,{isSuccess,error}]=useSocialAuthMutation();
+  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
 
   const [logout, setLogout] = useState(false);
-  const {}=useLogOutQuery(undefined,{
-      skip: !logout ? true : false,
-    });
+  const {} = useLogOutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
 
   useEffect(() => {
-    
-    if(!user){
-      if(data){
-        socialAuth({email:data?.user?.email, name:data?.user?.name,avatar: data?.user?.image})
+    if (!isLoading) {
+      if (!userData) {
+        if (data) {
+          socialAuth({
+            email: data?.user?.email,
+            name: data?.user?.name,
+            avatar: data?.user?.image,
+          });
+        }
       }
     }
-    
-    if(data===null && isSuccess){
+
+    if (data === null && isSuccess) {
       toast.success("Login successful");
     }
 
-    if(data===null){
+    if (data === null && !isLoading && !userData) {
       setLogout(true);
     }
-  }, [data,user])
-  
-  
+  }, [data, userData, isLoading]);
 
   // if (typeof window !== "undefined") {
   //   // for sticky header
@@ -78,7 +90,8 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
 
   return (
     <div className="w-full relative">
-      <div className={`${
+      <div
+        className={`${
           active
             ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
             : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow transition duration-500"
@@ -116,7 +129,9 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
                     width={30}
                     height={30}
                     className="w-[30px] h-[30px] rounded-full cursor-pointer "
-                    style={{border: activeItem==5 ? "2px solid #ffc107" : "none"}}
+                    style={{
+                      border: activeItem == 5 ? "2px solid #ffc107" : "none",
+                    }}
                   />
                 </Link>
               ) : (
@@ -178,6 +193,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
               setroute={setroute}
               activeItem={activeItem}
               component={Login}
+              refetch={refetch}
             />
           )}
         </>

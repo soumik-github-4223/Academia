@@ -19,7 +19,7 @@ const page = (props: Props) => {
           description="Academia is a learning plaform for technical courses"
           keywords="Academia, technical courses, learning, Programming"
         />
-        <div className="flex h-[200vh]">
+        <div className="flex min-h-[130vh]">
           <div className="w-1/5">
             <AdminSidebar />
           </div>

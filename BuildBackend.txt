@@ -165,3 +165,10 @@ Make newPayment fn in order_controller.ts
 Modify createOrder fn
 
 make route for payment in order_routes.ts
+
+To make notification feature and socket connection:
+
+Do npm i socket.io @types/socket.io
+Come to server.ts and make modification
+
+Make server/socketServer.ts

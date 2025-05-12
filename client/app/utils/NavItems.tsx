@@ -6,10 +6,10 @@ export const navItemsData = [
     name: "Home",
     url: "/",
   },
-  {
-    name: "Courses",
-    url: "/courses",
-  },
+  // {
+  //   name: "Courses",
+  //   url: "/courses",
+  // },
   {
     name: "About",
     url: "/about",

@@ -41,7 +41,7 @@ const CourseContent2 = ({ id,user }: Props) => {
               description="Academia is a learning platform for technical courses"
               keywords="E-commerce, online shopping, digital marketing"
             />
-            <div className="col-span-7">
+            <div className="col-span-7 min-h-screen">
               <CourseContentMedia
                 data={data}
                 id={id}

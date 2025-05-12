@@ -17,6 +17,7 @@ import { signIn } from "next-auth/react";
 type Props = {
   setroute: (route: string) => void;
   setOpen:(open:boolean)=>void;
+  refetch?:any;
 };
 
 //create YUP schema for validation
@@ -25,7 +26,7 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Enter your password").min(6),
 });
 
-const Login: FC<Props> = ({ setroute,setOpen }) => {
+const Login: FC<Props> = ({ setroute,setOpen, refetch }) => {
   const [show, setshow] = useState(false);
 
   const [login,{isSuccess,error}]=useLoginMutation()
@@ -42,6 +43,7 @@ const Login: FC<Props> = ({ setroute,setOpen }) => {
     if(isSuccess){
       setOpen(false);
       toast.success("Login successfull")
+      refetch();
     }
     if(error){
       if ("data" in error) {

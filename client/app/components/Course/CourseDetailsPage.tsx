@@ -54,9 +54,9 @@ const CourseDetailsPage = ({ id }: Props) => {
             keywords={data?.course?.tags}
           />
           <Header
+            activeItem={1}
             open={open}
             setOpen={setOpen}
-            activeItem={1}
             setroute={setRoute}
             route={route}
           />
@@ -66,6 +66,8 @@ const CourseDetailsPage = ({ id }: Props) => {
               data={data.course}
               stripePromise={stripePromise}
               clientSecret={clientSecret}
+              setOpen={setOpen}
+              setRoute={setRoute}
             />
           )}
 

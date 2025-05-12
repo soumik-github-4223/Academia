@@ -47,13 +47,13 @@ const UserAnalytics: FC<Props> = ({ isDashboard }: Props) => {
         ) : (
             <div
                 className={`${
-                    !isDashboard ? "mt-[50px]" : "mt-[50px]"
-                } bg-[#111C43] shadow-sm pb-8 rounded-sm`}
+                    !isDashboard ? "mt-[120px]" : "mt-[80px] w-[100] mb-12"
+                } bg-[#111C43] shadow-sm rounded-l-xl`}
             >
                 <div className={`${!isDashboard ? "ml-8 mb-5" : ""}`}>
                     <h1
                         className={`${styles.title} ${
-                            isDashboard && "text-[20px]"
+                            isDashboard && "text-[18px]"
                         } px-5 text-start`}
                     >
                         Users Analytics
@@ -66,8 +66,8 @@ const UserAnalytics: FC<Props> = ({ isDashboard }: Props) => {
                 </div>
                 <div
                     className={`w-full ${
-                        !isDashboard ? "h-[70vh]" : "h-[60vh]"
-                    } flex items-center justify-center mb-5`}
+                        !isDashboard ? "h-[70vh]" : "h-[40vh] flex items-center justify-center mb-5"
+                    } ${isDashboard ? "aspect-square" : ""}`}
                 >
                     <ResponsiveContainer width="90%" height="100%">
                         <AreaChart

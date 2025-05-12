@@ -4,22 +4,35 @@ import { styles } from "@/app/styles/style";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
 import CourseContentList from "../Course/CourseContentList";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../Payment/CheckoutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import Image from "next/image";
+import defaultAvatar from "../../../public/assets/avatar.png";
 
 type Props = {
   data: any;
   clientSecret: string;
   stripePromise: any;
+  setRoute:any;
+  setOpen:any;
 };
 
-const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
+const CourseDetails = ({ data, stripePromise, clientSecret, setRoute, setOpen:openAuthModal }: Props) => {
   // console.log(data);
   const { data: userData } = useLoadUserQuery(undefined, {});
-  const user = userData?.user;
+
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    if (userData) {
+      // console.log("User data is:", userData);
+      setUser(userData.user || null);
+    }
+  }, [userData]);
+
+  
   const [open, setOpen] = useState(false);
 
   const discountPercentage =
@@ -27,14 +40,17 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
 
   const discountPercentagePrice = discountPercentage.toFixed(0); // round to 0 decimal places
 
-  const isPurchased = 
-  true; // true is given to see demo access of the course
-
-  // comment the above line and uncomment below for actual functionality
-  // user && user?.courses?.find((item: any) => item._id === data._id);
+  const isPurchased=user?.courses?.find((item: any) => item._id === data._id);
+  
 
   const handleOrder = (e: any) => {
-    setOpen(true);
+    if(user){
+      setOpen(true);
+    }
+    else{
+      setRoute("Login");
+      openAuthModal(true);
+    }
   };
 
   return (
@@ -114,29 +130,31 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
             {data?.reviews &&
               [...data.reviews].reverse().map((item: any, index: number) => (
                 <div className="w-full pb-4" key={index}>
-                  <div className="w-[50px] h-[50px] bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
-                    <h1 className="uppercase text-[18px] text-white">
-                      {item.user.name.slice(0, 2)}
-                    </h1>
-                  </div>
-                  <div className="hidden md:block pl-2">
-                    <div className="flex items-center">
-                      <h5 className="text-[18px] pr-2 text-white">
-                        {item.user.name}
-                      </h5>
+                  <Image
+                    src={user?.avatar ? user.avatar.url : defaultAvatar}
+                    width={50}
+                    height={50}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full object-cover"
+                  />
+                    <div className="ml-2">
+                      <div className="flex items-center space-x-2">
+                      <h1 className="text-[18px] font-semibold text-white">
+                        {item?.user.name}
+                      </h1>
                       <Ratings rating={item.rating} />
+                      </div>
+                      <p className="mt-2 text-white">
+                      {item.comment ||
+                        item.review ||
+                        "No review text available"}
+                      </p>
+                      <span className="text-sm text-[#ffffff83]">
+                      {item.createdAt
+                        ? new Date(item.createdAt).toLocaleString()
+                        : ""}
+                      </span>
                     </div>
-                    <p className="text-white">{item.comment}</p>
-                    <small className="text-[#00000001] dark:text-[#ffffff83]">
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </small>
-                  </div>
-                  <div className="pl-2 flex md:hidden items-center">
-                    <h5 className="text-[18px] pr-2 text-white">
-                      {item.user.name}
-                    </h5>
-                    <Ratings rating={item.rating} />
-                  </div>
                 </div>
               ))}
           </div>
@@ -161,6 +179,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
               <Link
                 className={`${styles.button} w-[180px] font-Poppins cursor-pointer bg-[crimson]`}
                 href={`/course-access/${data._id}`}
+
               >
                 Enter to Course
               </Link>
@@ -202,7 +221,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
             <div className="w-full">
               {stripePromise && clientSecret && (
                 <Elements stripe={stripePromise} options={{ clientSecret }}>
-                  <CheckoutForm setOpen={setOpen} data={data} />
+                  <CheckoutForm setOpen={setOpen} data={data} user={user} />
                 </Elements>
               )}
             </div>

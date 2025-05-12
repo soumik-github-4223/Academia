@@ -13,8 +13,15 @@ import toast from "react-hot-toast";
 import {
   useAddAnswerToQuestionMutation,
   useAddNewQuestionMutation,
+  useAddReviewInCourseMutation,
+  useGetCourseDetailsQuery,
 } from "@/redux/features/courses/courseApi";
 import { BiMessage } from "react-icons/bi";
+import Ratings from "@/app/admin/utils/Ratings";
+import socketIO from "socket.io-client"
+const ENDPOINT=process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId=socketIO(ENDPOINT, {transports: ['websocket']});
+
 
 type Props = {
   data: any;
@@ -33,6 +40,13 @@ const CourseContentMedia = ({
   user,
   refetch,
 }: Props) => {
+  const { data: courseData, refetch: courseRefetch } = useGetCourseDetailsQuery(
+    id,
+    { refetchOnMountOrArgChange: true }
+  );
+
+  const course = courseData?.course;
+
   const [activeBar, setactiveBar] = useState(0);
 
   const [question, setQuestion] = useState("");
@@ -42,7 +56,7 @@ const CourseContentMedia = ({
   ] = useAddNewQuestionMutation();
 
   const [review, setReview] = useState("");
-  const isReviewExists = data?.reviews?.find(
+  const isReviewExists = course?.reviews?.find(
     (item: any) => item.user_id === user._id
   );
   const [rating, setRating] = useState(0);
@@ -62,10 +76,29 @@ const CourseContentMedia = ({
     }
   };
 
-  const [addAnswerToQuestion, { isSuccess: isAnswerSuccess, error: answerError }] = useAddAnswerToQuestionMutation();
+  const [
+    addAnswerToQuestion,
+    { isSuccess: isAnswerSuccess, error: answerError },
+  ] = useAddAnswerToQuestionMutation();
   const handleAnswerSubmit = (e: any) => {
-    addAnswerToQuestion({answer, courseId: id, contentId: data[activeVideo]._id, questionId});
-    
+    addAnswerToQuestion({
+      answer,
+      courseId: id,
+      contentId: data[activeVideo]._id,
+      questionId,
+    });
+  };
+
+  const [addReviewInCourse, { isSuccess: reviewSuccess, error: reviewError }] =
+    useAddReviewInCourseMutation();
+
+  const handleReviewSubmit = async () => {
+    if (review.length === 0) {
+      toast.error("Please write a review");
+    } else {
+      // console.log(review)
+      addReviewInCourse({ review, rating, courseId: id });
+    }
   };
 
   useEffect(() => {
@@ -73,14 +106,27 @@ const CourseContentMedia = ({
       setQuestion("");
       refetch();
       toast.success("Question added");
+      socketId.emit("notification", {
+        title: "New question received",
+        message: `You have a new question in ${data[activeVideo].title}`,
+        userId: user._id,
+      });
     }
 
-    if(isAnswerSuccess){
+    if (isAnswerSuccess) {
       setAnswer("");
       refetch();
       toast.success("Answer added");
+      if(user.role !== "admin"){
+        socketId.emit("notification", {
+          title: "New reply received",
+          message: `You have a new reply in ${data[activeVideo].title}`,
+          userId: user._id,
+        });
+
+      }
     }
-    if(answerError){
+    if (answerError) {
       if ("data" in answerError) {
         const errorMessage = answerError as any;
         toast.error(errorMessage.data.message);
@@ -92,7 +138,35 @@ const CourseContentMedia = ({
         toast.error(errorMessage.data.message);
       }
     }
-  }, [isSuccess, error, refetch, isAnswerSuccess, answerError]);
+
+    if (reviewSuccess) {
+      setReview("");
+      setRating(0);
+      courseRefetch();
+      toast.success("Review added");
+      socketId.emit("notification", {
+        title: "New review received",
+        message: `You have a new review in ${course?.title}`,
+        userId: user._id,
+      });
+    }
+
+    if (reviewError) {
+      if ("data" in reviewError) {
+        const errorMessage = reviewError as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [
+    isSuccess,
+    error,
+    refetch,
+    isAnswerSuccess,
+    answerError,
+    reviewSuccess,
+    reviewError,
+    courseRefetch,
+  ]);
 
   return (
     <div className="w-[95%] md:w-[86%] py-4 m-auto">
@@ -268,12 +342,55 @@ const CourseContentMedia = ({
               <div className="w-full flex justify-end">
                 <div
                   className={`${styles.button} !w-[120px] !h-[40px] text-[18px] mt-5 md:mr-0 mr-2`}
+                  onClick={handleReviewSubmit}
                 >
                   Submit
                 </div>
               </div>
             </>
           )}
+          <br />
+          <div className="w-full h-[1px] bg-[#ffffff3b]"></div>
+          <div className="w-full">
+            {course?.reviews &&
+              [...course.reviews].reverse().map((item: any, index: number) => (
+                <div className="w-full my-5" key={index}>
+                  <div className="w-full flex">
+                    <div>
+                      <Image
+                        src={
+                          item.user.avatar
+                            ? item.user.avatar.url
+                            : defaultAvatar
+                        }
+                        width={50}
+                        height={50}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full object-cover"
+                      />
+                    </div>
+                    <div className="ml-2">
+                      <div className="flex items-center space-x-2">
+                        <h1 className="text-[18px] font-semibold text-white">
+                          {item?.user.name}
+                        </h1>
+                        <Ratings rating={item.rating} />
+                      </div>
+                      <p className="mt-2 text-white">
+                        {item.comment ||
+                          item.review ||
+                          "No review text available"}
+                      </p>
+                      <span className="text-sm text-[#ffffff83]">
+                        {item.createdAt
+                          ? new Date(item.createdAt).toLocaleString()
+                          : ""}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </div>
@@ -368,20 +485,20 @@ const CommentItem = ({
               key={reply.id}
             >
               <Image
-              src={reply.user.avatar ? reply.user.avatar.url : defaultAvatar}
-              width={50}
-              height={50}
-              alt=""
-              className="w-[50px] h-[50px] rounded-full object-cover"
+                src={reply.user.avatar ? reply.user.avatar.url : defaultAvatar}
+                width={50}
+                height={50}
+                alt=""
+                className="w-[50px] h-[50px] rounded-full object-cover"
               />
               <div className="pl-2">
-              <h5 className="text-[20px]">{reply.user.name}</h5>
-              <p>{reply.answer}</p>
-              <small className="text-[#ffffff83]">
-                {reply.createdAt
-                ? new Date(reply.createdAt).toLocaleString()
-                : ""}
-              </small>
+                <h5 className="text-[20px]">{reply.user.name}</h5>
+                <p>{reply.answer}</p>
+                <small className="text-[#ffffff83]">
+                  {reply.createdAt
+                    ? new Date(reply.createdAt).toLocaleString()
+                    : ""}
+                </small>
               </div>
             </div>
           ))}

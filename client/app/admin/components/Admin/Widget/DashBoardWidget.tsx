@@ -1,182 +1,66 @@
 import React from "react";
 import UserAnalytics from "../Analytics/UserAnalytics";
 import AllInvoices from "../Orders/AllInvoices";
-import { Box, Typography, Grid, Paper } from "@mui/material";
-import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
-import { BiBarChartAlt2 } from "react-icons/bi";
+import { FaBorderNone } from "react-icons/fa";
+import { GoPeople } from "react-icons/go";
+import OrdersAnalytics from "../Analytics/OrderAnalytics";
+import { styles } from "@/app/styles/style";
 
 const DashBoardWidget = () => {
   return (
-    <Box
-      sx={{
-        padding: "20px",
-        backgroundColor: "#f4f6f8",
-        minHeight: "100vh",
-      }}
-    >
-      {/* Header */}
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: "bold",
-          marginBottom: "20px",
-          color: "#111C43",
-        }}
-      >
-        Admin Dashboard
-      </Typography>
+    <div className="grid grid-cols-1 md:grid-cols-2">
+      <div>
+        <OrdersAnalytics isDashboard={true} />
+      </div>
+      <div>
+        <div className="mt-10 grid grid-cols-1 gap-4 p-4">
+          {/* Card 1 */}
+          <div className="bg-[#111C43] text-white rounded-lg shadow-md p-6 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+                <div className="text-4xl font-bold flex items-center gap-4">
+                <FaBorderNone height={15} width={15} />
+                <span>120</span>
+                </div>
+              <div className="w-10 h-10 border-4 border-blue-500 rounded-full flex items-center justify-center flex-col">
+                {/* Placeholder for circular progress */}
+                <p className="text-green-400 text-sm mt-20">+120%</p>
+              </div>
+            </div>
+            <div className="mt-4">
+              <p className="text-lg font-semibold">Sales Obtained</p>
+            </div>
+          </div>
 
-      {/* Overview Cards */}
-      <Grid container spacing={3} sx={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={6} md={4}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              backgroundColor: "#4d62d9",
-              color: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Box>
-              <Typography variant="h6">Total Users</Typography>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                12,345
-              </Typography>
-            </Box>
-            <AiOutlineUser size={40} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              backgroundColor: "#3e4396",
-              color: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Box>
-              <Typography variant="h6">Total Orders</Typography>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                8,765
-              </Typography>
-            </Box>
-            <AiOutlineShoppingCart size={40} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              backgroundColor: "#1f2a40",
-              color: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Box>
-              <Typography variant="h6">Revenue</Typography>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                $123,456
-              </Typography>
-            </Box>
-            <BiBarChartAlt2 size={40} />
-          </Paper>
-        </Grid>
-      </Grid>
-
-      {/* Analytics and Invoices */}
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "10px",
-                color: "#111C43",
-              }}
-            >
-              User Analytics
-            </Typography>
-            <UserAnalytics isDashboard={true} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "10px",
-                color: "#111C43",
-              }}
-            >
-              Order Analytics
-            </Typography>
-            {/* Placeholder for OrderAnalytics */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                color: "#888",
-              }}
-            >
-              <Typography>Order Analytics Coming Soon...</Typography>
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "20px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "10px",
-                color: "#111C43",
-              }}
-            >
-              All Invoices
-            </Typography>
-            <AllInvoices isDashboard={true} />
-          </Paper>
-        </Grid>
-      </Grid>
-    </Box>
+          {/* Card 2 */}
+          <div className="bg-[#111C43] text-white rounded-lg shadow-md p-6 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <div className="text-4xl font-bold flex items-center gap-4">
+                <GoPeople height={15} width={15} />
+                <span>450</span>
+                </div>
+              <div className="w-10 h-10 border-4 border-blue-500 rounded-full flex items-center justify-center flex-col">
+                {/* Placeholder for circular progress */}
+                <p className="text-green-400 text-sm mt-20">+150%</p>
+              </div>
+            </div>
+            <div className="mt-4">
+              <p className="text-lg font-semibold">New Users</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p
+          className={`${styles.title} pl-12 pt-8 mb-2 text-[20px] text-start `}
+        >
+          Recent Transactions
+        </p>
+        <AllInvoices isDashboard={true} />
+      </div>
+      <div>
+        <UserAnalytics isDashboard={true} />
+      </div>
+    </div>
   );
 };
 

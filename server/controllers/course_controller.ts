@@ -286,7 +286,9 @@ export const addedAnswer=catchAsyncError(async(req:Request, res:Response, next:N
         //create new answer
         const newAnswer :any={
             user:req.user,
-            answer
+            answer,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
         }
 
         //add answer to the question
@@ -368,7 +370,9 @@ export const addReview=catchAsyncError(async(req:Request, res:Response, next:Nex
             rating
         }
 
-        course?.reviews.push(reviewData);    
+        course?.reviews.push(reviewData);  
+        
+        // console.log(reviewData);
 
         let avg=0;
         course?.reviews.forEach((item:any)=>{
@@ -379,14 +383,14 @@ export const addReview=catchAsyncError(async(req:Request, res:Response, next:Nex
             course.ratings=avg/course.reviews.length;
         }
         await course?.save();
-
-        const notification={
-            title:"New Review Received",
-            message:`${req.user?.name} has added a review to your course ${course?.name}`
-        }
+        await redis.set(courseId,JSON.stringify(course),'EX',604800); // 7days expiry
 
         // create notification
-
+        await NotificationModel.create({
+            user:req.user?._id,
+            title:"New review received",
+            message: `${req.user?.name} has added a review to your course ${course?.name}`
+        });
 
 
 

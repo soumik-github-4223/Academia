@@ -11,7 +11,7 @@ interface IComment extends Document{
 interface IReview extends Document{
     user:Iuser;
     rating: number;
-    comment:string;
+    review:string;
     commentReplies?: IComment[];
 }
 
@@ -56,7 +56,7 @@ const reviewSchema=new Schema<IReview>({
         type:Number,
         default:0
     },
-    comment:String,
+    review:String,
     commentReplies: [Object]
 }, {timestamps:true});
 
