@@ -19,3 +19,28 @@ export default eslintConfig
 
 Then all 'any' errors are gone
 
+We are not using vercel for backend deployment, we will use Heroku to deploy easily
+
+In server/tsconfig.json update below things
+ "target": "ES2020",
+"module": "commonjs",   
+"rootDir": "../server",  
+"outDir": "./Build", 
+
+Now come to package.json in server directory and add below things:
+"type":"commonjs",
+  "main": "build/server.js",
+  "engines": {
+    "node": "18.x"
+  },
+
+In scripts of the above package.json add
+"start": "node build/server.js",
+"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false",
+"build": "tsc"
+
+After all that run npm run build in server directory, this will generate javascripts in Build folder
+
+Make a file named Procfile and add the content there, for Heroku
+
+
