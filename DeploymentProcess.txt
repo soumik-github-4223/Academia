@@ -49,4 +49,6 @@ Now make a repo as Academia-server and push all server codes there
 
 Come to mongodb and in Network access add ip 0.0.0.0/0
 
-Go to heroku -> create new app -> 
+Go to heroku -> create new app -> ..Heroku needs credit card.. not deployed
+
+
