@@ -21,12 +21,12 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
       href={!isProfile ? `/course/${item._id}` : `/course-access/${item._id}`}
     >
       <div
-        onClick={() =>
-          console.log(
-            "Navigating to:",
-            !isProfile ? `/course/${item._id}` : `/course-access/${item._id}`
-          )
-        }
+        // onClick={() =>
+        //   console.log(
+        //     "Navigating to:",
+        //     !isProfile ? `/course/${item._id}` : `/course-access/${item._id}`
+        //   )
+        // }
         className="w-full min-h-[35vh] bg-slate-900 bg-opacity-20 backdrop-blur border border-[#ffffff1d] shadow-[bg-slate-700] rounded-lg p-3"
       >
         <Image

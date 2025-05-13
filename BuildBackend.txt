@@ -172,3 +172,7 @@ Do npm i socket.io @types/socket.io
 Come to server.ts and make modification
 
 Make server/socketServer.ts
+
+Now to protect our api from multiple requests from same ip address install: npm i express-rate-limit
+
+Open app.ts in server folder and from documentation include limiter fn

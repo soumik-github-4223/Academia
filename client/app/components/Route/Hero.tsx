@@ -27,14 +27,26 @@ const Hero: FC<Props> = () => {
             Discover technical courses and resources to enhance your skills and
             achieve your goals.
           </p>
-          <div className="mt-8 flex justify-center lg:justify-start space-x-4">
-            <a className="px-8 py-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition text-lg font-medium">
-              Explore Courses
-            </a>
-            <a className="px-8 py-4 bg-gray-200 text-gray-800 rounded-full shadow-lg hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 transition text-lg font-medium">
-              Learn More
-            </a>
-          </div>
+          {/* <div className="mt-8 flex flex-col lg:flex-row lg:justify-start space-y-4 lg:space-y-0 lg:space-x-4">
+            <div>
+              <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-200">
+                Featured Course
+              </h3>
+              <p className="mt-2 text-gray-700 dark:text-gray-300">
+                Check out our most popular course to kickstart your learning
+                journey.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Why Choose Us?
+              </h3>
+              <p className="mt-2 text-gray-700 dark:text-gray-300">
+                Learn from industry experts with hands-on projects and
+                real-world examples.
+              </p>
+            </div>
+          </div> */}
         </div>
 
         {/* Image Section */}

@@ -12,9 +12,8 @@ import Loader from "../../../../../app/components/Loader/Loader";
 import { useGetCoursesAnalyticsQuery } from "../../../../../redux/features/analytics/analyticsApi";
 import { styles } from "../../../../../app/styles/style";
 
-type Props = {};
 
-const CourseAnalytics = (props: Props) => {
+const CourseAnalytics = () => {
   const { data, isLoading } = useGetCoursesAnalyticsQuery({});
 
   /** Mock data

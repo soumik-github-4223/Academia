@@ -8,9 +8,21 @@ type Props = {
     // Defines the types for the component props
     active: number;
     setActive: (active: number) => void;
-    courseContentData: any;
-    setCourseContentData: (courseContentData: any) => void;
-    handleSubmit: any;
+    courseContentData: { 
+        videoUrl: string; 
+        title: string; 
+        description: string; 
+        videoSection: string; 
+        links: { title: string; url: string }[]; 
+    }[];
+    setCourseContentData: (courseContentData: { 
+        videoUrl: string; 
+        title: string; 
+        description: string; 
+        videoSection: string; 
+        links: { title: string; url: string }[]; 
+    }[]) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const CourseContent: FC<Props> = ({
@@ -30,7 +42,7 @@ const CourseContent: FC<Props> = ({
     const [activeSection, setActiveSection] = useState(1);
 
     // Handles the overall submission of the form
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
@@ -56,7 +68,13 @@ const CourseContent: FC<Props> = ({
     };
 
     // Creates new video content under the current or last used section if fields are valid
-    const newContentHandler = (item: any) => {
+    const newContentHandler = (item: { 
+        videoUrl: string; 
+        title: string; 
+        description: string; 
+        videoSection: string; 
+        links: { title: string; url: string }[]; 
+    }) => {
         if (
             item.title === "" ||
             item.description === "" ||
@@ -136,7 +154,13 @@ const CourseContent: FC<Props> = ({
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handleSubmit}>
-        {courseContentData?.map((item: any, index: number) => {
+        {courseContentData?.map((item: { 
+            videoUrl: string; 
+            title: string; 
+            description: string; 
+            videoSection: string; 
+            links: { title: string; url: string }[]; 
+        }, index: number) => {
           const showSectionInput =
             index == 0 ||
             item.videoSection !== courseContentData[index - 1].videoSection;
@@ -323,7 +347,7 @@ const CourseContent: FC<Props> = ({
                   <div>
                     <p
                       className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"
-                      onClick={(e: any) => newContentHandler(item)}
+                      onClick={() => newContentHandler(item)}
                     >
                       <AiOutlinePlusCircle className="mr-2" /> Add New Content
                     </p>

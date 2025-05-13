@@ -9,7 +9,7 @@ import courseRouter from './routes/course_routes';
 import orderRouter from './routes/order_routes';
 import notificationRoute from './routes/notification_routes';
 import analyticsRouter from './routes/analytics_routes';
-
+import { rateLimit } from 'express-rate-limit'
 
 //body parser : 
 app.use(express.json({limit: '50mb'}));
@@ -24,6 +24,13 @@ app.use(cors({
     credentials: true
 }));
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	// store: ... , // Redis, Memcached, etc. See below.
+})
 
 //routes
 app.use("/api/v1",UserRouter,courseRouter,orderRouter,notificationRoute,analyticsRouter); //use the routes
@@ -43,5 +50,6 @@ app.all("*",(req:Request, res:Response,next:NextFunction)=>{
     next(err); // Pass control to the next middleware
 }) 
 
+app.use(limiter) // Apply the rate limiting middleware to all requests
 
 app.use(errorMiddleware); //error handling middleware

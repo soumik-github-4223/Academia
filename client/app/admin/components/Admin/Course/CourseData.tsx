@@ -20,7 +20,7 @@ const CourseData: FC<Props> = ({
   active,
   setActive,
 }) => {
-  const handleBenefitChange = (index: number, value: any) => {
+  const handleBenefitChange = (index: number, value: string) => {
     const updatedBenefits = [...benefits];
     updatedBenefits[index].title = value;
     setBenefits(updatedBenefits);
