@@ -13,7 +13,7 @@ UserRouter.post('/login',loginUser);
 
 UserRouter.get('/logout',isAuthenticated,logoutUser); // isAuthenticated middleware is used to protect the route
 
-UserRouter.get("/refresh",updateAccessToken);
+UserRouter.get("/refresh", updateAccessToken);
 
 UserRouter.get("/me",isAuthenticated,getUserInfo);
 

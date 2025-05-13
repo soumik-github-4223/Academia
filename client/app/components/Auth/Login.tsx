@@ -13,11 +13,10 @@ import { useLoginMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
-
 type Props = {
   setroute: (route: string) => void;
-  setOpen:(open:boolean)=>void;
-  refetch?:any;
+  setOpen: (open: boolean) => void;
+  refetch?: any;
 };
 
 //create YUP schema for validation
@@ -26,33 +25,32 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Enter your password").min(6),
 });
 
-const Login: FC<Props> = ({ setroute,setOpen, refetch }) => {
+const Login: FC<Props> = ({ setroute, setOpen, refetch }) => {
   const [show, setshow] = useState(false);
 
-  const [login,{isSuccess,error}]=useLoginMutation()
+  const [login, { isSuccess, error }] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      await login({email,password});
+      await login({ email, password });
     },
   });
 
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       setOpen(false);
-      toast.success("Login successfull")
+      toast.success("Login successfull");
       refetch();
     }
-    if(error){
+    if (error) {
       if ("data" in error) {
         const errorData = error as { data: { message: string } };
         toast.error(errorData.data.message);
       }
-
     }
-  },[isSuccess,error]) ;
+  }, [isSuccess, error]);
 
   //destructure some values from formik
   const { values, touched, errors, handleSubmit, handleChange } = formik;
@@ -111,15 +109,29 @@ const Login: FC<Props> = ({ setroute,setOpen, refetch }) => {
               onClick={() => setshow(false)}
             />
           )}
-
         </div>
-          {errors.password && touched.password && (
-            <span className="text-red-500 pt-2 block">{errors.password}</span>
-          )}
+        {errors.password && touched.password && (
+          <span className="text-red-500 pt-2 block">{errors.password}</span>
+        )}
 
         {/* submit button */}
         <div className="w-full mt-5">
           <input type="submit" value="Login" className={`${styles.button}`} />
+        </div>
+        <br />
+
+        {/* Login as guest */}
+        <div
+          className="w-full flex items-center justify-center mt-3 cursor-pointer"
+          onClick={() => {
+            formik.setValues({
+              email: "aryatestcustom@gmail.com",
+              password: "123456789",
+            });
+            handleSubmit();
+          }}
+        >
+          <button className={`${styles.button} bg-orange-700 `}>Login as Guest<span className=" text-emerald-50 pl-1"> (No email password required)</span> </button>
         </div>
         <br />
 
@@ -128,11 +140,15 @@ const Login: FC<Props> = ({ setroute,setOpen, refetch }) => {
           Or Join with
         </h5>
         <div className="flex items-center justify-center my-3 ">
-          <FcGoogle size={30} className="cursor-pointer mr-2" 
-            onClick={()=> signIn("google")}
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => signIn("google")}
           />
-          <AiFillGithub size={30} className="cursor-pointer ml-2" 
-            onClick={()=> signIn("github")}
+          <AiFillGithub
+            size={30}
+            className="cursor-pointer ml-2"
+            onClick={() => signIn("github")}
           />
         </div>
 

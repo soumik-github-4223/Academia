@@ -8,6 +8,7 @@ import {
 } from "../../../redux/features/courses/courseApi";
 import Loader from "@/app/components/Loader/Loader";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 // import { useTheme } from "next-themes";
 
@@ -68,12 +69,21 @@ const AllCourses = (props: Props) => {
     }
   }, [deleteSuccess, deleteError, refetch]);
 
+  const { user } = useSelector((state: any) => state.auth);
+
+  // console.log(user.email);
+
   const handleDeleteCourse = async (id: string) => {
     if (!confirm("Are you sure you want to delete this Course?")) {
       return;
     }
 
     try {
+      if (user.email === "aryatestcustom@gmail.com") {
+        toast.error("Course cannot be deleted in guest mode");
+        return;
+      }
+
       await deleteCourse(id).unwrap();
     } catch (err) {
       console.error("Failed to delete course:", err);
