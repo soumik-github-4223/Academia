@@ -44,3 +44,9 @@ After all that run npm run build in server directory, this will generate javascr
 Make a file named Procfile and add the content there, for Heroku
 
 
+
+Now make a repo as Academia-server and push all server codes there
+
+Come to mongodb and in Network access add ip 0.0.0.0/0
+
+Go to heroku -> create new app -> 
