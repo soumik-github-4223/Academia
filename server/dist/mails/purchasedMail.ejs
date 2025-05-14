@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Confirmation</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header, .footer {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .header {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            
+        }
+        .footer {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .header .logo {
+            float: left;
+        }
+        .header .contact-info {
+            float: right;
+            text-align: right;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .course-details {
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        .course-details p {
+            margin: 5px 0;
+        }
+        .course-details p strong {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <div class="contact-info">
+                <p>Email: support@academia.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <h1>Academia Purchase Confirmation</h1>
+        <p>Dear User,</p>
+        <p>Thank you for your purchase on Academia! Here are the details of your transaction:</p>
+        <div class="course-details">
+            <p><strong>Course ID:</strong> <%= order._id %></p>
+            <p><strong>Course Name:</strong> <%= order.name %></p>
+            <p><strong>Price:</strong> $<%= order.price %></p>
+            <p><strong>Date of Purchase:</strong> <%= order.date %></p>
+        </div>
+        <p>If you have any questions, feel free to contact our support team.</p>
+        <div class="footer">
+            <p>&copy; <%= new Date().getFullYear() %> Academia. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

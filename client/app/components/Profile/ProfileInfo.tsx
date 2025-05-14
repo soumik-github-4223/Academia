@@ -59,7 +59,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   };
 
   return (
-    <div className="w-full h-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div className="w-full h-full bg-gray-800 rounded-lg shadow-md p-6">
       {/* Avatar Section */}
       <div className="flex flex-col items-center">
         <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg">
@@ -88,7 +88,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
 
       {/* Profile Details Section */}
       <div className="mt-6">
-        <h3 className="text-lg font-medium text-gray-800 dark:text-white">
+        <h3 className="text-lg font-medium text-white">
           Profile Details
         </h3>
         <div className="mt-4 space-y-4">
@@ -96,7 +96,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
           <div className="flex flex-col">
             <label
               htmlFor="nameInput"
-              className="text-gray-600 dark:text-gray-300 font-medium"
+              className="text-gray-300 font-medium"
             >
               Name
             </label>
@@ -105,7 +105,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
               type="text"
               value={name}
               onChange={handleNameChange}
-              className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
             />
           </div>
 
@@ -124,7 +124,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
           <div className="flex flex-col mt-4">
             <label
               htmlFor="emailInput"
-              className="text-gray-600 dark:text-gray-300 font-medium"
+              className="text-gray-300 font-medium"
             >
               Email
             </label>
@@ -133,7 +133,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
               type="text"
               value={email}
               disabled
-              className="mt-1 px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed"
+              className="mt-1 px-4 py-2 border rounded-lg bg-gray-700 text-gray-400 cursor-not-allowed"
             />
           </div>
         </div>

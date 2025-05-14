@@ -136,7 +136,7 @@ const Login: FC<Props> = ({ setroute, setOpen, refetch }) => {
         <br />
 
         {/* social auths */}
-        <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white ">
+        <h5 className="text-center pt-4 font-Poppins text-[14px] text-white ">
           Or Join with
         </h5>
         <div className="flex items-center justify-center my-3 ">

@@ -46,8 +46,8 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
   };
 
   return (
-    <div className="w-full h-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h2 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
+    <div className="w-full h-full bg-gray-800 rounded-lg shadow-md p-6">
+      <h2 className="text-lg font-medium  text-white mb-4">
         Change Password
       </h2>
       <div className="space-y-4">
@@ -55,7 +55,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
         <div className="flex flex-col">
           <label
             htmlFor="oldPassword"
-            className="text-gray-600 dark:text-gray-300 font-medium"
+            className="text-gray-300 font-medium"
           >
             Old Password
           </label>
@@ -64,7 +64,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
             type="password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
-            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
           />
         </div>
 
@@ -72,7 +72,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
         <div className="flex flex-col">
           <label
             htmlFor="newPassword"
-            className="text-gray-600 dark:text-gray-300 font-medium"
+            className="text-gray-300 font-medium"
           >
             New Password
           </label>
@@ -81,7 +81,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
           />
         </div>
 
@@ -89,7 +89,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
         <div className="flex flex-col">
           <label
             htmlFor="confirmPassword"
-            className="text-gray-600 dark:text-gray-300 font-medium"
+            className="text-gray-300 font-medium"
           >
             Confirm Password
           </label>
@@ -98,7 +98,7 @@ const ChangePassword: React.FC<Props> = ({ user }) => {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white"
           />
         </div>
 

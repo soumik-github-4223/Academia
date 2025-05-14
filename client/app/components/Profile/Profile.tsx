@@ -35,6 +35,7 @@ const Profile: FC<Props> = ({ user }) => {
   }, [data]);
 
   const logoutHandler = async () => {
+    // console.log("logging out")
     setLogout(true);
     await signOut();
   };
@@ -70,7 +71,7 @@ const Profile: FC<Props> = ({ user }) => {
       )}
 
       {active === 3 && (
-        <div className="w-full pl-7 px-2 800px:px-10 800px:pl-8">
+        <div className="w-full pl-7 px-2 md:px-10 800px:pl-8">
           <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[35px] xl:grid-cols-3">
             {courses &&
               courses.map((item: any, index: number) => (

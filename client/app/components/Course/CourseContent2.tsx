@@ -29,7 +29,7 @@ const CourseContent2 = ({ id,user }: Props) => {
       ) : (
         <>
           <Header
-            activeItem={1}
+            activeItem={9}
             open={open}
             setOpen={setOpen}
             route={route}

@@ -26,8 +26,8 @@ const SidebarProfile: FC<Props> = ({
     <div className="w-full pr-6">
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 1 ? "dark:bg-slate-800 bg-white " : "bg-transparent"
-        } hover:dark:bg-slate-700 hover:bg-gray-100`}
+          active === 1 ? "bg-slate-800  " : "bg-transparent"
+        } hover:bg-slate-700 `}
         onClick={() => setactive(1)}
       >
         <Image
@@ -39,15 +39,15 @@ const SidebarProfile: FC<Props> = ({
           height={20}
           className="w-[20px] h-[20px] md:w-[30px] md:h-[30px] cursor-pointer rounded-full "
         />
-        <h5 className="pl-2 md:block hidden font-Poppins dark:text-white text-black ">
+        <h5 className="pl-2 md:block hidden font-Poppins text-white  ">
           My Account
         </h5>
       </div>
 
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 2 ? "dark:bg-slate-800 bg-white " : "bg-transparent"
-        } hover:dark:bg-slate-700 hover:bg-gray-100`}
+          active === 2 ? "bg-slate-800  " : "bg-transparent"
+        } hover:bg-slate-700 `}
         onClick={() => setactive(2)}
       >
         <RiLockPasswordLine size={20} fill="#fff" />
@@ -58,12 +58,12 @@ const SidebarProfile: FC<Props> = ({
 
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 3 ? "dark:bg-slate-800 bg-white " : "bg-transparent"
-        } hover:dark:bg-slate-700 hover:bg-gray-100`}
+          active === 3 ? "bg-slate-800  " : "bg-transparent"
+        } hover:bg-slate-700 `}
         onClick={() => setactive(3)}
       >
         <SiCoursera size={20} fill="#fff" />
-        <h5 className="pl-2 md:block hidden font-Poppins dark:text-white text-black ">
+        <h5 className="pl-2 md:block hidden font-Poppins text-white  ">
           Enrolled Courses
         </h5>
       </div>
@@ -71,12 +71,12 @@ const SidebarProfile: FC<Props> = ({
       {user.role === "admin" && (
         <Link
           className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-            active === 6 ? "dark:bg-slate-800 bg-white " : "bg-transparent"
-          } hover:dark:bg-slate-700 hover:bg-gray-100`}
+            active === 6 ? "bg-slate-800  " : "bg-transparent"
+          } hover:bg-slate-700 `}
           href={"/admin"}
         >
           <MdOutlineAdminPanelSettings size={20} fill="#fff" />
-          <h5 className="pl-2 md:block hidden font-Poppins dark:text-white text-black ">
+          <h5 className="pl-2 md:block hidden font-Poppins text-white  ">
             Admin Dashboard
           </h5>
         </Link>
@@ -84,12 +84,12 @@ const SidebarProfile: FC<Props> = ({
 
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 4 ? "dark:bg-slate-800 bg-white " : "bg-transparent"
-        } hover:dark:bg-slate-700 hover:bg-gray-100`}
+          active === 4 ? "bg-slate-800  " : "bg-transparent"
+        } hover:bg-slate-700 `}
         onClick={() => logoutHandler()}
       >
         <AiOutlineLogout size={20} fill="#fff" />
-        <h5 className="pl-2 md:block hidden font-Poppins dark:text-white text-black ">
+        <h5 className="pl-2 md:block hidden font-Poppins text-white  ">
           Logout
         </h5>
       </div>

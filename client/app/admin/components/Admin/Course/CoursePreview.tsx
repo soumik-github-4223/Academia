@@ -82,7 +82,7 @@ const CoursePreview: FC<Props> = ({
       <p className="pb-3 md:pb-1">Premium support</p>
 
       <div className="w-full">
-        <div className="w-full 800px:pr-5">
+        <div className="w-full md:pr-5">
           <h1 className="text-[25px] font-Poppins font-[600]">
             {courseData?.name}
           </h1>
@@ -98,7 +98,7 @@ const CoursePreview: FC<Props> = ({
             What will you learn from this course?
           </h1>
           {courseData?.benefits?.map((item: any, index: number) => (
-            <div className="w-full flex 800px:items-center py-2" key={index}>
+            <div className="w-full flex md:items-center py-2" key={index}>
               <div className="w-[15px] mr-1">
                 <IoCheckmarkDoneOutline size={20} />
               </div>

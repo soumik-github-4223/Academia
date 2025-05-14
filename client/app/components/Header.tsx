@@ -93,8 +93,8 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
       <div
         className={`${
           active
-            ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
-            : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow transition duration-500"
+            ? "bg-opacity-50 dark:bg-gradient-to-b from-gray-900 to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b border-[#ffffff1c] shadow-xl transition duration-500"
+            : "w-full border-b border-[#ffffff1c] h-[80px] z-[80] shadow transition duration-500"
         }`}
       >
         <div className="w-[95%] md:w-[92%] m-auto py-2 h-full">
@@ -102,7 +102,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
             <div>
               <Link
                 href={"/"}
-                className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
+                className={`text-[25px] font-Poppins font-[500] text-white`}
               >
                 {" "}
                 Academia
@@ -116,7 +116,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
               <div className="md:hidden">
                 <HiOutlineMenuAlt3
                   size={25}
-                  className="cursor-pointer dark:text-white text-black"
+                  className="cursor-pointer text-white "
                   onClick={() => setOpenSidebar(true)}
                 />
               </div>
@@ -137,7 +137,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
               ) : (
                 <HiOutlineUserCircle
                   size={25}
-                  className="hidden md:block cursor-pointer dark:text-white text-black"
+                  className="hidden md:block cursor-pointer text-white "
                   onClick={() => setOpen(true)}
                 />
               )}
@@ -156,13 +156,13 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
           id="screen"
         >
           <div
-            className={`w-[75%] max-w-[320px] h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 fixed top-0 right-0 z-[99999999] shadow-lg rounded-l-lg transition-transform duration-500 ${
+            className={`w-[75%] max-w-[320px] h-screen bg-gradient-to-b  from-gray-800 to-gray-900 fixed top-0 right-0 z-[99999999] shadow-lg rounded-l-lg transition-transform duration-500 ${
               openSidebar ? "translate-x-0" : "translate-x-full"
             }`}
           >
             <div className="p-6 flex flex-col h-full">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                <h2 className="text-lg font-semibold  text-gray-200">
                   Menu
                 </h2>
                 {user ? (
@@ -181,7 +181,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
                 ) : (
                   <HiOutlineUserCircle
                     size={25}
-                    className="hidden md:block cursor-pointer dark:text-white text-black"
+                    className="hidden md:block cursor-pointer text-white "
                     onClick={() => setOpen(true)}
                   />
                 )}
@@ -190,7 +190,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setroute }) => {
                 <NavItems activeItem={activeItem} isMobile={true} />
               </div>
               <div className="mt-6 border-t pt-4 border-gray-300 dark:border-gray-700">
-                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+                <p className="text-sm text-gray-400 text-center">
                   Copyright &copy; 2025 Academia
                 </p>
               </div>

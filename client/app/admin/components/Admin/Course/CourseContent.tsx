@@ -294,7 +294,7 @@ const CourseContent: FC<Props> = ({
                               linkIndex === 0
                                 ? "cursor-no-drop"
                                 : "cursor-pointer"
-                            } text-black dark:text-white text-[20px]`}
+                            } text-white text-[20px]`}
                             onClick={() =>
                               linkIndex === 0
                                 ? null
@@ -333,7 +333,7 @@ const CourseContent: FC<Props> = ({
                     {/* add link button */}
                     <div className="inline-block mb-4">
                       <p
-                        className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"
+                        className="flex items-center text-[18px] text-white cursor-pointer"
                         onClick={() => handleAddLink(index)}
                       >
                         <BiLink className="mr-2" /> Add Link
@@ -346,7 +346,7 @@ const CourseContent: FC<Props> = ({
                 {index === courseContentData.length - 1 && (
                   <div>
                     <p
-                      className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"
+                      className="flex items-center text-[18px] text-white  cursor-pointer"
                       onClick={() => newContentHandler(item)}
                     >
                       <AiOutlinePlusCircle className="mr-2" /> Add New Content

@@ -303,7 +303,7 @@ const CourseContentMedia = ({
                   className="w-[50px] h-[50px] rounded-full object-cover"
                 />
                 <div className="w-full">
-                  <h5 className="pl-3 text-[20px] font-[500] dark:text-white text-black">
+                  <h5 className="pl-3 text-[20px] font-[500] text-white ">
                     Give a Rating <span className="text-red-500">*</span>
                   </h5>
                   <div className="flex w-full ml-2 pb-3">
@@ -470,7 +470,7 @@ const CommentItem = ({
         </span>
         <BiMessage
           size={20}
-          className="dark:text-[#ffffff83] cursor-pointer text-[#0000008B]"
+          className="text-[#ffffff83] cursor-pointer "
         />
         <span className="pl-1 mt-[-4px] cursor-pointer text-[#ffffff83]">
           {item.questionReplies.length}
@@ -481,7 +481,7 @@ const CommentItem = ({
         <div className="mt-4">
           {item.questionReplies.map((reply: any) => (
             <div
-              className="w-full flex ml-10 800px:ml-20 my-5 text-black dark:text-white"
+              className="w-full flex ml-10 800px:ml-20 my-5  text-white"
               key={reply.id}
             >
               <Image

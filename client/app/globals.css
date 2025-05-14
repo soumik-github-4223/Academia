@@ -97,3 +97,6 @@ body {
   color: #ffffffd7 !important;
 }
 
+.css-ue0yy6 .MuiDataGrid-container--top [role="row"], .css-ue0yy6 .MuiDataGrid-container--bottom [role="row"] {
+    background-color: transparent !important;
+}

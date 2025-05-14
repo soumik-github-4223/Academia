@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'; //import express 
 export const app = express(); // create an instance of express
-import cors from 'cors'; //import cors
 import cookieParser from 'cookie-parser';
 require('dotenv').config(); //import dotenv
 import { errorMiddleware } from './middleware/error';
@@ -10,6 +9,7 @@ import orderRouter from './routes/order_routes';
 import notificationRoute from './routes/notification_routes';
 import analyticsRouter from './routes/analytics_routes';
 import { rateLimit } from 'express-rate-limit'
+import cors from 'cors'; //import cors
 
 //body parser : 
 app.use(express.json({limit: '50mb'}));
@@ -20,15 +20,16 @@ app.use(cookieParser());
 //cors = Cross origin resource sharing Used for security
 //cors helps us to hit the api only from our origin, not from anywhere else
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    // origin: ['https://academia-orpin.vercel.app'],
+    origin:['http://localhost:3000'],
     credentials: true
 }));
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	limit: 100, // Limit each IP to 100 requests per window (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: RateLimit-* headers; draft-7 & draft-8: combined RateLimit header
+	legacyHeaders: false, // Disable the X-RateLimit-* headers.
 	// store: ... , // Redis, Memcached, etc. See below.
 })
 

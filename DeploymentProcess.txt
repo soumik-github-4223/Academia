@@ -51,4 +51,29 @@ Come to mongodb and in Network access add ip 0.0.0.0/0
 
 Go to heroku -> create new app -> ..Heroku needs credit card.. not deployed
 
+The above heroku deployment process is not needed.
+
+Process of deploying backend to vercel:
+
+Come to jwt.ts in server directory -> update sameSite: 'none'; in all places
+
+Chatgpt process: https://chatgpt.com/share/68235bd2-62e8-8011-aadf-a14c5824a8e4
+
+Brief : 1. Update package.json
+2. Add vercel.json
+3. No Build folder is required for vercel deployment, it will create build folder on its own
+4. During deployment on vercel website install command will be : npm install
+
+
+Now deploying frontend to vercel :
+1. After getting backend depl url update that in env of client, update to CoursePlayer.tsx
+
+After frontend deployment, come to backend -> update cors from http://localhost:3000 to https://academia-client.vercel.app
+
+
+Come to Google developer console-> select project -> go to apis & services -> credentials -> in OAuth 2.0 Client IDs Actions column click on pencil icon -> add frontend deployed link to Authorized JS origins and to authorized redirect URIs -> save
+
+Deploy to Render :
+Build server folder by npm run build which will generate dist folder with js files -> copy the mails folder to dist folder manually -> go to render click new -> web service -> connect to git repo -> In build command write npm install as it will install the node, express modules during deployment -> in start command write : node dist/server.js as it will run our project from that file -> import all the envs -> deploy
+
 

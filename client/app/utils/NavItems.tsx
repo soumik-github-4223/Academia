@@ -39,8 +39,8 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
           <span
           className={`${
             activeItem === index
-            ? "dark:text-[#37a39a] text-[crimson]"
-            : "dark:text-white text-black"
+            ? "text-[#37a39a] "
+            : "text-white "
           } text-[18px] px-6 font-Poppins font-[400]`}
           >
           {i.name}
@@ -50,10 +50,10 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
       </div>
 
       {isMobile && (
-      <div className="md:hidden mt-5 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg p-4">
-        <div className="w-full text-center py-4 border-b border-gray-300 dark:border-gray-700">
+      <div className="md:hidden mt-5 bg-gray-800 rounded-lg shadow-lg p-4">
+        <div className="w-full text-center py-4 border-b border-gray-700">
         <Link href={"/"} passHref>
-          <span className="text-[25px] font-Poppins font-[500] text-black dark:text-white">
+          <span className="text-[25px] font-Poppins font-[500] text-white">
           Academia
           </span>
         </Link>
@@ -66,9 +66,9 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
             <span
             className={`${
               activeItem === index
-              ? "dark:text-[#37a39a] text-[crimson] bg-gray-200 dark:bg-gray-700"
-              : "dark:text-white text-black"
-            } block text-[18px] px-4 py-2 rounded-lg font-Poppins font-[400] hover:bg-gray-300 dark:hover:bg-gray-600`}
+              ? "text-[#37a39a]  bg-gray-200 dark:bg-gray-700"
+              : "text-white "
+            } block text-[18px] px-4 py-2 rounded-lg font-Poppins font-[400]  hover:bg-gray-600`}
             >
             {i.name}
             </span>

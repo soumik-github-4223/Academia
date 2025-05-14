@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const express_1 = __importDefault(require("express")); //import express 
 exports.app = (0, express_1.default)(); // create an instance of express
-const cors_1 = __importDefault(require("cors")); //import cors
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 require('dotenv').config(); //import dotenv
 const error_1 = require("./middleware/error");
@@ -16,6 +15,7 @@ const order_routes_1 = __importDefault(require("./routes/order_routes"));
 const notification_routes_1 = __importDefault(require("./routes/notification_routes"));
 const analytics_routes_1 = __importDefault(require("./routes/analytics_routes"));
 const express_rate_limit_1 = require("express-rate-limit");
+const cors_1 = __importDefault(require("cors")); //import cors
 //body parser : 
 exports.app.use(express_1.default.json({ limit: '50mb' }));
 //cookie-parser : To set cookies in the browser from backend
@@ -23,14 +23,14 @@ exports.app.use((0, cookie_parser_1.default)());
 //cors = Cross origin resource sharing Used for security
 //cors helps us to hit the api only from our origin, not from anywhere else
 exports.app.use((0, cors_1.default)({
-    origin: ['http://localhost:3000'],
+    origin: ['https://academia-orpin.vercel.app'],
     credentials: true
 }));
 const limiter = (0, express_rate_limit_1.rateLimit)({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-    standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+    limit: 100, // Limit each IP to 100 requests per window (here, per 15 minutes).
+    standardHeaders: 'draft-8', // draft-6: RateLimit-* headers; draft-7 & draft-8: combined RateLimit header
+    legacyHeaders: false, // Disable the X-RateLimit-* headers.
     // store: ... , // Redis, Memcached, etc. See below.
 });
 //routes

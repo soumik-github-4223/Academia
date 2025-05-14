@@ -124,6 +124,10 @@ export const loginUser=catchAsyncError(async(req:Request, res:Response,next:Next
         }
 
         const user=await userModel.findOne({email}).select("+password");
+        // console.log(user);
+
+        // for production
+        // const user=true;
 
         if(!user){
             return next(new ErrorHandler("Invalid email or password",400));

@@ -80,6 +80,9 @@ exports.loginUser = (0, catchAsyncErrors_1.catchAsyncError)(async (req, res, nex
             return next(new ErrorHandler_1.default("Please enter email and password", 400));
         }
         const user = await user_model_1.userModel.findOne({ email }).select("+password");
+        // console.log(user);
+        // for production
+        // const user=true;
         if (!user) {
             return next(new ErrorHandler_1.default("Invalid email or password", 400));
         }
@@ -114,6 +117,7 @@ exports.logoutUser = (0, catchAsyncErrors_1.catchAsyncError)(async (req, res, ne
 //update access token
 exports.updateAccessToken = (0, catchAsyncErrors_1.catchAsyncError)(async (req, res, next) => {
     try {
+        // console.log("refresh token test")
         const refresh_token = req.cookies.refresh_token;
         const decoded = jsonwebtoken_1.default.verify(refresh_token, process.env.REFRESH_TOKEN);
         const message = "Please login first.";

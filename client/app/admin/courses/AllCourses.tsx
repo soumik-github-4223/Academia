@@ -145,7 +145,7 @@ const AllCourses = (props: Props) => {
               },
               "& .MuiDataGrid-row": {
                 color: "#fff",
-                borderBottom: "1px solid #ffffff30!important",
+                borderBottom: "1px solid #ffffff30 !important",
               },
               "& .MuiTablePagination-root": {
                 color: "#fff",

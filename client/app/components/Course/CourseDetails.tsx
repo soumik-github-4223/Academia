@@ -193,16 +193,16 @@ const CourseDetails = ({ data, stripePromise, clientSecret, setRoute, setOpen:op
             )}
           </div>
           <br />
-          <p className="pb-1 text-black dark:text-white">
+          <p className="pb-1 text-white">
             - Source code included
           </p>
-          <p className="pb-1 text-black dark:text-white">
+          <p className="pb-1 text-white">
             - Full lifetime access
           </p>
-          <p className="pb-1 text-black dark:text-white">
+          <p className="pb-1 text-white">
             - Certificate of completion
           </p>
-          <p className="pb-3 800px:pb-1 text-black dark:text-white">
+          <p className="pb-3 800px:pb-1 text-white">
             - Premium Support
           </p>
         </div>

@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
+import trustAvatar1 from "../../../public/assets/trustAvatar1.jpg";
+import trustAvatar2 from "../../../public/assets/trustAvatar2.jpg";
+import trustAvatar3 from "../../../public/assets/trustAvatar3.jpg";
+import trustAvatar4 from "../../../public/assets/trustAvatar4.jpg";
 
 type Props = {};
 
@@ -15,15 +19,15 @@ const Hero: FC<Props> = () => {
   };
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+    <div className="relative w-full h-screen bg-gradient-to-b  from-gray-900 to-gray-800">
       {/* Hero Content */}
       <div className="container mx-auto px-6 lg:px-12 flex flex-col items-center lg:flex-row lg:items-center justify-between h-full">
         {/* Text Section */}
         <div className="lg:w-1/2 text-center lg:text-left">
-          <h1 className="text-5xl lg:text-7xl font-extrabold text-gray-800 dark:text-white leading-tight">
+          <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-tight">
             Empower Your <span className="text-blue-600">Learning</span> Journey
           </h1>
-          <p className="mt-6 text-lg lg:text-xl text-gray-600 dark:text-gray-300">
+          <p className="mt-6 text-lg lg:text-xl text-gray-300">
             Discover technical courses and resources to enhance your skills and
             achieve your goals.
           </p>
@@ -102,28 +106,28 @@ const Hero: FC<Props> = () => {
             <div className="flex items-center justify-center space-x-2">
               <div className="flex -space-x-2">
                 <Image
-                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  src={trustAvatar1}
                   alt="Avatar 1"
                   width={40}
                   height={40}
                   className="rounded-full border-2 border-white"
                 />
                 <Image
-                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  src={trustAvatar2}
                   alt="Avatar 2"
                   width={40}
                   height={40}
                   className="rounded-full border-2 border-white"
                 />
                 <Image
-                  src="https://randomuser.me/api/portraits/men/65.jpg"
+                  src={trustAvatar3}
                   alt="Avatar 3"
                   width={40}
                   height={40}
                   className="rounded-full border-2 border-white"
                 />
                 <Image
-                  src="https://randomuser.me/api/portraits/women/12.jpg"
+                  src={trustAvatar4}
                   alt="Avatar 4"
                   width={40}
                   height={40}
